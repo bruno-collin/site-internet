@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Œuvres Support Toile</title>
+    <style>
+        body { background: #111; color: #fff; font-family: Arial; margin: 0; padding: 40px; }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover { transform: scale(1.03); }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 50px;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .button {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Œuvres Support Toile</h1>
+    <div class="gallery">
+        <img src="images-toile/toile-001.jpg" onclick="openModal(this.src)">
+        <img src="images-toile/toile-002.jpg" onclick="openModal(this.src)">
+        <img src="images-toile/toile-003.jpg" onclick="openModal(this.src)">
+        <img src="images-toile/toile-004.jpg" onclick="openModal(this.src)">
+        <img src="images-toile/toile-005.jpg" onclick="openModal(this.src)">
+        <img src="images-toile/toile-006.jpg" onclick="openModal(this.src)">
+        <img src="images-toile/toile-007.jpg" onclick="openModal(this.src)">
+    </div>
+
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <br>
+    <div style="text-align: center;">
+        <a href="index.html" class="button">Accueil</a>
+        <a href="demarche.html" class="button">Démarche</a>
+        <a href="contact.html" class="button">Contact</a>
+    </div>
+
+    <script>
+        const modal = document.getElementById("myModal");
+        const modalImg = document.getElementById("modalImage");
+        const closeBtn = document.querySelector(".close");
+
+        function openModal(src) {
+            modal.style.display = "block";
+            modalImg.src = src;
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
