@@ -5,194 +5,162 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Artiste - Bruno Collin</title>
     <style>
-        /* Styles existants (conservés) */
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #111; color: #fff; }
-        header { padding: 30px; text-align: center; background: #000; border-bottom: 1px solid #333; }
-        header h1 { margin: 0; font-size: 36px; letter-spacing: 2px; }
-        section { padding: 60px 10%; }
-        .home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
-        .home-item { position: relative; cursor: pointer; text-decoration: none; color: white; }
-        .home-item img { width: 100%; height: 420px; object-fit: cover; border-radius: 12px; transition: transform 0.4s; }
-        .home-item:hover img { transform: scale(1.05); }
-        .home-title { position: absolute; bottom: 20px; width: 100%; text-align: center; background: rgba(0, 0, 0, 0.7); color: white; padding: 10px 0; border-radius: 6px; font-size: 18px; }
-        .button { background: #333; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 6px; display: inline-block; margin: 5px; }
-        .footer-buttons { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
-        footer { text-align: center; padding: 30px; border-top: 1px solid #333; margin-top: 60px; font-size: 14px; opacity: 0.7; }
+        /* Styles globaux */
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #111;
+            color: #fff;
+        }
 
+        header {
+            padding: 30px;
+            text-align: center;
+            background: #000;
+            border-bottom: 1px solid #333;
+        }
 
-/* ICI */
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            letter-spacing: 2px;
+        }
+
+        section {
+            padding: 60px 10%;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .home-item {
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .home-item img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.4s;
+        }
+
+        .home-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .home-title {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 0;
+            border-radius: 6px;
+            font-size: 18px;
+        }
+
+        .button {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #333;
+            margin-top: 60px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
 
         /* Styles pour la modale de galerie */
-#galleryModal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    overflow-y: auto;
-    padding: 20px 0;
-}
+        #galleryModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
 
-.modal-close {
-    position: fixed;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-    z-index: 1001;
-}
+        #galleryTitle {
+            text-align: center;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 0;
+            z-index: 1000;
+            font-size: 24px;
+            margin-top: 0;
+        }
 
-.modal-gallery {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
-    max-width: 1400px;
-    margin: 80px auto 40px;
-    padding: 0 20px;
-}
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1001;
+        }
 
-.modal-gallery img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 200px;
-    transform: scale(0.25);
-    transform-origin: center;
-    object-fit: contain;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s;
-    margin: 0 auto;
-    display: block;
-}
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            max-width: 1400px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
+        }
 
-.modal-gallery img:hover {
-    transform: scale(0.27);
-}
+        .modal-gallery img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 200px;
+            transform: scale(0.25); /* 25% de la taille réelle */
+            transform-origin: center;
+            object-fit: contain;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin: 0 auto;
+            display: block;
+        }
 
-/* Modale pour l'image agrandie */
-.modal-image-full {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1001;
-    justify-content: center;
-    align-items: center;
-}
+        .modal-gallery img:hover {
+            transform: scale(0.27);
+        }
 
-.modal-image-full img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-    object-fit: contain;
-}
-
-        
-        
-        /* Styles pour la modale de galerie (avec défilement) */    
-    #galleryModal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        z-index: 1000;
-        overflow-y: auto; /* Active le défilement vertical si nécessaire */
-        padding: 20px 0;
-    }
-
-    .modal-close {
-        position: fixed;
-        top: 20px;
-        right: 30px;
-        color: white;
-        font-size: 30px;
-        cursor: pointer;
-        z-index: 1001;
-    }
-
-/*
-        
-    .modal-gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-        max-width: 1200px;
-        margin: 60px auto 40px;
-        padding: 0 20px;
-    }
-
-    .modal-gallery img {
-        width: 100%;
-        height: 280px;
-        object-fit: cover;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: transform 0.3s;
-    }
-
-    .modal-gallery img:hover {
-        transform: scale(1.03);
-    }
-*/
-
-/* Styles pour les images de la galerie (25% de la taille réelle) */
-.modal-gallery {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 colonnes pour une grille dense */
-    gap: 15px;
-    max-width: 1400px;
-    margin: 80px auto 40px;
-    padding: 0 20px;
-}
-
-.modal-gallery img {
-    width: auto; /* Largeur automatique pour respecter les proportions */
-    height: auto; /* Hauteur automatique */
-    max-width: 100%; /* Limite la largeur à la taille de la cellule de la grille */
-    max-height: 200px; /* Hauteur maximale pour uniformiser la grille */
-/*    transform: scale(0.25); */ /* Affiche l'image à 25% de sa taille réelle */
-   transform: scale(0.50); */ /* Affiche l'image à 50% de sa taille réelle */
-    transform-origin: center; /* Centre l'image lors du redimensionnement */
-    object-fit: contain; /* Conserve les proportions sans rognage */
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s;
-    margin: 0 auto; /* Centre l'image dans sa cellule */
-    display: block; /* Évite les espaces indésirables sous l'image */
-}
-
-.modal-gallery img:hover {
-    transform: scale(0.27); /* Légère augmentation au survol */
-}
-        
-
-<!-- Modale pour les galeries -->
-<div id="galleryModal">
-    <h2 id="galleryTitle"></h2>
-    <span class="modal-close" onclick="closeGallery()">&times;</span>
-    <div class="modal-gallery" id="modalGalleryContent"></div>
-</div>
-
-<!-- Modale pour l'image agrandie -->
-<div id="fullImageModal" class="modal-image-full" onclick="closeFullImage()">
-    <span class="modal-close" style="position: absolute; top: 20px; right: 30px; color: white; font-size: 30px; cursor: pointer;" onclick="closeFullImage()">&times;</span>
-    <img id="fullImageContent">
-</div>
-
-
-        
-        
+        /* Modale pour l'image agrandie */
         .modal-image-full {
             display: none;
             position: fixed;
@@ -205,10 +173,12 @@
             justify-content: center;
             align-items: center;
         }
+
         .modal-image-full img {
             max-width: 90%;
             max-height: 90%;
             border-radius: 10px;
+            object-fit: contain;
         }
     </style>
 </head>
@@ -236,23 +206,16 @@
         </div>
     </section>
 
-/* REMPLACEMENT PAR LIGNES SUIVANTES
-    <!-- Modale pour les galeries -->
+    <!-- Modale pour les galeries (avec titre dynamique) -->
     <div id="galleryModal">
+        <h2 id="galleryTitle"></h2>
         <span class="modal-close" onclick="closeGallery()">&times;</span>
         <div class="modal-gallery" id="modalGalleryContent"></div>
     </div>
-*/
-    
-    <!-- Modale pour les galeries (avec titre dynamique) -->
-    <div id="galleryModal">
-    <h2 id="galleryTitle" style="text-align: center; color: white; margin-top: 50px; position: fixed; top: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.7); padding: 15px 0; z-index: 1000; font-size: 24px;"></h2>
-    <span class="modal-close" onclick="closeGallery()">&times;</span>
-    <div class="modal-gallery" id="modalGalleryContent" style="margin-top: 80px;"></div>
-</div>
 
     <!-- Modale pour l'image agrandie -->
     <div id="fullImageModal" class="modal-image-full" onclick="closeFullImage()">
+        <span class="modal-close" onclick="closeFullImage()">&times;</span>
         <img id="fullImageContent">
     </div>
 
@@ -268,36 +231,42 @@
         // Liste des images pour chaque galerie
         const galleries = {
             toile: [
-                "images-toile/toile-001.jpg",
-                "images-toile/toile-002.jpg",
-                "images-toile/toile-003.jpg",
-                "images-toile/toile-004.jpg",
-                "images-toile/toile-005.jpg",
-                "images-toile/toile-006.jpg",
-                "images-toile/toile-007.jpg"
+                "images-toile/toile-001.jpg", "images-toile/toile-002.jpg", "images-toile/toile-003.jpg",
+                "images-toile/toile-004.jpg", "images-toile/toile-005.jpg", "images-toile/toile-006.jpg",
+                "images-toile/toile-007.jpg", "images-toile/toile-008.jpg", "images-toile/toile-009.jpg",
+                "images-toile/toile-010.jpg", "images-toile/toile-011.jpg", "images-toile/toile-012.jpg",
+                "images-toile/toile-013.jpg", "images-toile/toile-014.jpg", "images-toile/toile-015.jpg",
+                "images-toile/toile-016.jpg", "images-toile/toile-017.jpg", "images-toile/toile-018.jpg",
+                "images-toile/toile-019.jpg", "images-toile/toile-020.jpg", "images-toile/toile-021.jpg",
+                "images-toile/toile-022.jpg", "images-toile/toile-023.jpg", "images-toile/toile-024.jpg",
+                "images-toile/toile-025.jpg"
             ],
             papier: [
-                "images-papier/papier-001.jpg",
-                "images-papier/papier-002.jpg",
-                "images-papier/papier-003.jpg",
-                "images-papier/papier-004.jpg",
-                "images-papier/papier-005.jpg"
+                "images-papier/papier-001.jpg", "images-papier/papier-002.jpg", "images-papier/papier-003.jpg",
+                "images-papier/papier-004.jpg", "images-papier/papier-005.jpg"
             ],
             "3d": [
-                "images-3d/3d-001.jpg",
-                "images-3d/3d-002.jpg",
-                "images-3d/3d-003.jpg",
-                "images-3d/3d-004.jpg"
+                "images-3d/3d-001.jpg", "images-3d/3d-002.jpg", "images-3d/3d-003.jpg", "images-3d/3d-004.jpg"
             ]
         };
 
-/*
-        // Ouvre une galerie dans la modale
+        // Ouvre une galerie dans la modale (avec titre dynamique)
         function openGallery(type) {
             const modal = document.getElementById("galleryModal");
             const galleryContent = document.getElementById("modalGalleryContent");
+            const galleryTitle = document.getElementById("galleryTitle");
+
+            // Définit le titre en fonction du type de galerie
+            let title = "";
+            if (type === "toile") title = "Œuvres Support Toile";
+            else if (type === "papier") title = "Œuvres Support Papier";
+            else if (type === "3d") title = "Œuvres 3D";
+            galleryTitle.textContent = title;
+
+            // Vide le contenu précédent
             galleryContent.innerHTML = "";
 
+            // Affiche les images de la galerie (25% de taille)
             galleries[type].forEach(image => {
                 galleryContent.innerHTML += `
                     <img src="${image}" onclick="openFullImage('${image}')">
@@ -305,6 +274,7 @@
             });
 
             modal.style.display = "block";
+            modal.scrollTop = 0;
         }
 
         // Ferme la modale de galerie
@@ -322,65 +292,8 @@
 
         // Ferme l'image agrandie
         function closeFullImage() {
-            document.get
-
-*/
-            
-// Ouvre une galerie dans la modale (avec titre dynamique)
-function openGallery(type) {
-    const modal = document.getElementById("galleryModal");
-    const galleryContent = document.getElementById("modalGalleryContent");
-    const galleryTitle = document.getElementById("galleryTitle");
-
-    // Définit le titre en fonction du type de galerie
-    let title = "";
-    if (type === "toile") {
-        title = "Œuvres Support Toile";
-    } else if (type === "papier") {
-        title = "Œuvres Support Papier";
-    } else if (type === "3d") {
-        title = "Œuvres 3D";
-    }
-    galleryTitle.textContent = title;
-
-    // Vide le contenu précédent
-    galleryContent.innerHTML = "";
-
-    // Affiche les images de la galerie
-    galleries[type].forEach(image => {
-        galleryContent.innerHTML += `
-            <img src="${image}" onclick="openFullImage('${image}')" style="transform: scale(0.25); transform-origin: center; object-fit: contain; max-height: 200px; margin: 0 auto; display: block;">
-        `;
-    });
-
-    // Affiche la modale
-    modal.style.display = "block";
-    modal.scrollTop = 0;
-}
-
-// Ferme la modale de galerie
-function closeGallery() {
-    document.getElementById("galleryModal").style.display = "none";
-}
-
-// Ouvre une image en grand
-function openFullImage(src) {
-    const modal = document.getElementById("fullImageModal");
-    const img = document.getElementById("fullImageContent");
-    img.src = src;
-    modal.style.display = "flex";
-}
-
-// Ferme l'image agrandie
-function closeFullImage() {
-    document.getElementById("fullImageModal").style.display = "none";
-}ElementById("fullImageModal").style.display = "none";
- 
+            document.getElementById("fullImageModal").style.display = "none";
         }
-
-        
-
-        
     </script>
 </body>
 </html>
