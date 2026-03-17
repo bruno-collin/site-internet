@@ -143,11 +143,20 @@
         </div>
     </section>
 
+/* REMPLACEMENT PAR LIGNES SUIVANTES
     <!-- Modale pour les galeries -->
     <div id="galleryModal">
         <span class="modal-close" onclick="closeGallery()">&times;</span>
         <div class="modal-gallery" id="modalGalleryContent"></div>
     </div>
+*/
+    
+    <!-- Modale pour les galeries (avec titre dynamique) -->
+    <div id="galleryModal">
+    <h2 id="galleryTitle" style="text-align: center; color: white; margin-top: 50px; position: fixed; top: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.7); padding: 15px 0; z-index: 1000; font-size: 24px;"></h2>
+    <span class="modal-close" onclick="closeGallery()">&times;</span>
+    <div class="modal-gallery" id="modalGalleryContent" style="margin-top: 80px;"></div>
+</div>
 
     <!-- Modale pour l'image agrandie -->
     <div id="fullImageModal" class="modal-image-full" onclick="closeFullImage()">
