@@ -132,7 +132,7 @@
             z-index: 1001;
         }
 
-        /* Galerie organisée par séries */
+        /* Galerie organisée par séries avec défilement horizontal */
         .modal-gallery {
             max-width: 1200px;
             margin: 80px auto 40px;
@@ -141,34 +141,46 @@
 
         .series-container {
             margin-bottom: 40px;
+            display: flex;
+            align-items: flex-start;
         }
 
         .series-title {
-            text-align: center;
+            width: 200px;
+            text-align: left;
             font-size: 20px;
-            margin-bottom: 20px;
+            margin-right: 20px;
             color: white;
             font-weight: bold;
+            flex-shrink: 0;
         }
 
         .series-images {
             display: flex;
-            flex-wrap: wrap;
+            overflow-x: auto;
             gap: 20px;
-            justify-content: center;
+            padding-bottom: 10px;
+            flex: 1;
+        }
+
+        .series-images::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .series-images::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
         }
 
         .series-images img {
             max-width: 300px;
             max-height: 300px;
             transform: scale(1);
-            transform-origin: center;
             object-fit: contain;
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.3s;
-            margin: 0 auto;
-            display: block;
+            flex-shrink: 0;
         }
 
         .series-images img:hover {
@@ -265,22 +277,17 @@
                     series: "Fortuité",
                     images: [
                         { src: "images-toile/toile-001.jpg", legend: "Fortuité 1 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
-                        { src: "images-toile/toile-002.jpg", legend: "Fortuité 2 - Acrylique et pastel, 100x80 cm" }
+                        { src: "images-toile/toile-002.jpg", legend: "Fortuité 2 - Acrylique et pastel, 100x80 cm" },
+                        { src: "images-toile/toile-003.jpg", legend: "Fortuité 3 - Inspiration CoBrA, toile libre" },
+                        { src: "images-toile/toile-004.jpg", legend: "Fortuité 4 - Peinture à l'huile, 2022" }
                     ]
                 },
                 {
                     series: "Abstraction",
                     images: [
-                        { src: "images-toile/toile-003.jpg", legend: "Œuvre 3 - Inspiration CoBrA, toile libre" },
-                        { src: "images-toile/toile-004.jpg", legend: "Œuvre 4 - Peinture à l'huile, 2022" },
-                        { src: "images-toile/toile-005.jpg", legend: "Œuvre 5 - Abstraction géométrique" }
-                    ]
-                },
-                {
-                    series: "Horizons",
-                    images: [
-                        { src: "images-toile/toile-006.jpg", legend: "Œuvre 6 - Collage et peinture" },
-                        { src: "images-toile/toile-007.jpg", legend: "Œuvre 7 - Série 'Horizons'" }
+                        { src: "images-toile/toile-005.jpg", legend: "Abstraction 1 - Abstraction géométrique" },
+                        { src: "images-toile/toile-006.jpg", legend: "Abstraction 2 - Collage et peinture" },
+                        { src: "images-toile/toile-007.jpg", legend: "Abstraction 3 - Série 'Horizons'" }
                     ]
                 }
             ],
@@ -288,31 +295,16 @@
                 {
                     series: "Monotypes",
                     images: [
-                        { src: "images-papier/papier-001.jpg", legend: "Monotype - Encre et aquarelle, 50x70 cm" },
-                        { src: "images-papier/papier-002.jpg", legend: "Collage - Papier déchiré et peinture" }
+                        { src: "images-papier/papier-001.jpg", legend: "Monotype 1 - Encre et aquarelle, 50x70 cm" },
+                        { src: "images-papier/papier-002.jpg", legend: "Monotype 2 - Papier déchiré et peinture" }
                     ]
                 },
                 {
                     series: "Dessins",
                     images: [
-                        { src: "images-papier/papier-003.jpg", legend: "Dessin - Fusain et pastel" },
-                        { src: "images-papier/papier-004.jpg", legend: "Estampe - Technique mixte" },
-                        { src: "images-papier/papier-005.jpg", legend: "Aquarelle - Série 'Nature'" }
-                    ]
-                },
-                {
-                    series: "Bientôt Fini",
-                    images: [
-                        { src: "images-papier/papier-serie001-000.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier" },
-                        { src: "images-papier/papier-serie001-001.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier - 65cm x 50cm" },
-                        { src: "images-papier/papier-serie001-002.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier - 65cm x 50cm" },
-                        { src: "images-papier/papier-serie001-003.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier - 65cm x 50cm" },
-                        { src: "images-papier/papier-serie001-004.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier - 65cm x 50cm" },
-                        { src: "images-papier/papier-serie001-005.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier - 65cm x 50cm" },
-                        { src: "images-papier/papier-serie001-006.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier - 65cm x 50cm" },
-                        { src: "images-papier/papier-serie001-007.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier - 65cm x 50cm" },
-                        { src: "images-papier/papier-serie001-008.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier - 65cm x 50cm" },
-                        { src: "images-papier/papier-serie001-009.jpg", legend: "Série Bientôt Fini - Acrylique et autres techniques sur papier - 65cm x 50cm" },
+                        { src: "images-papier/papier-003.jpg", legend: "Dessin 1 - Fusain et pastel" },
+                        { src: "images-papier/papier-004.jpg", legend: "Dessin 2 - Estampe, technique mixte" },
+                        { src: "images-papier/papier-005.jpg", legend: "Dessin 3 - Aquarelle, série 'Nature'" }
                     ]
                 }
             ],
@@ -320,15 +312,15 @@
                 {
                     series: "Sculptures",
                     images: [
-                        { src: "images-3d/3d-001.jpg", legend: "Sculpture - Carton et peinture, 2024" },
-                        { src: "images-3d/3d-002.jpg", legend: "Installation - Matériaux recyclés" }
+                        { src: "images-3d/3d-001.jpg", legend: "Sculpture 1 - Carton et peinture, 2024" },
+                        { src: "images-3d/3d-002.jpg", legend: "Sculpture 2 - Installation, matériaux recyclés" }
                     ]
                 },
                 {
                     series: "Assemblages",
                     images: [
-                        { src: "images-3d/3d-003.jpg", legend: "Assemblage - Bois et métal" },
-                        { src: "images-3d/3d-004.jpg", legend: "Volume - Papier mâché" }
+                        { src: "images-3d/3d-003.jpg", legend: "Assemblage 1 - Bois et métal" },
+                        { src: "images-3d/3d-004.jpg", legend: "Assemblage 2 - Volume, papier mâché" }
                     ]
                 }
             ]
@@ -355,7 +347,7 @@
                 const seriesDiv = document.createElement("div");
                 seriesDiv.className = "series-container";
 
-                const seriesTitle = document.createElement("h3");
+                const seriesTitle = document.createElement("div");
                 seriesTitle.className = "series-title";
                 seriesTitle.textContent = series.series;
                 seriesDiv.appendChild(seriesTitle);
