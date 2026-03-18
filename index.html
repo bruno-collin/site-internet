@@ -187,6 +187,7 @@
             transform: scale(1.05);
         }
 
+        /* Modale pour l'image agrandie avec légende à gauche */
         .modal-image-full {
             display: none;
             position: fixed;
@@ -196,30 +197,46 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
             z-index: 1001;
-            justify-content: center;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .full-image-container {
+            display: flex;
+            max-width: 90%;
+            max-height: 90%;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .full-image-legend {
+            max-width: 300px;
+            color: white;
+            font-size: 16px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            text-align: left;
         }
 
         .modal-image-full img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
+            max-width: 70%;
+            max-height: 90vh;
+            border-radius: 8px;
             object-fit: contain;
         }
 
-        /* Style pour la légende de l'image agrandie */
-        #fullImageLegend {
-            position: absolute;
-            bottom: 20px;
+        .modal-close-full {
+            position: fixed;
+            top: 20px;
+            right: 30px;
             color: white;
-            text-align: center;
-            font-size: 16px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 5px;
-            max-width: 80%;
-            left: 50%;
-            transform: translateX(-50%);
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1002;
         }
     </style>
 </head>
@@ -240,7 +257,7 @@
 
             <!-- Galerie Papier -->
             <div class="home-item" onclick="openGallery('papier')">
-                <img src="images-papier/papier-serie003-005.jpg">
+                <img src="images-papier/papier-serie001-000.jpg">
                 <div class="home-title">Œuvres Support Papier</div>
             </div>
 
@@ -259,11 +276,13 @@
         <div class="modal-gallery" id="modalGalleryContent"></div>
     </div>
 
-    <!-- Modale pour l'image agrandie (avec légende) -->
-    <div id="fullImageModal" class="modal-image-full" onclick="closeFullImage()">
-        <span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">&times;</span>
-        <img id="fullImageContent" onclick="event.stopPropagation()">
-        <div id="fullImageLegend"></div>
+    <!-- Modale pour l'image agrandie (avec légende à gauche) -->
+    <div id="fullImageModal" class="modal-image-full">
+        <span class="modal-close-full" onclick="closeFullImage()">&times;</span>
+        <div class="full-image-container">
+            <div class="full-image-legend" id="fullImageLegend"></div>
+            <img id="fullImageContent">
+        </div>
     </div>
 
     <footer>
@@ -274,25 +293,25 @@
         © 2026 Portfolio Artiste
     </footer>
 
-    <script
+    <script>
         // Liste des images pour chaque galerie (organisées par séries)
         const galleries = {
             toile: [
                 {
-                    series: "Série 'Fortuité'",
+                    series: "Fortuité",
                     images: [
                         { src: "images-toile/toile-serie001-001.jpg", legend: "Fortuité 1 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
-                        { src: "images-toile/toile-serie001-002.jpg", legend: "Fortuité 2 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
-                        { src: "images-toile/toile-serie001-003.jpg", legend: "Fortuité 3 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
-                        { src: "images-toile/toile-serie001-004.jpg", legend: "Fortuité 4 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
-                        { src: "images-toile/toile-serie001-005.jpg", legend: "Fortuité 5 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" }
+                        { src: "images-toile/toile-serie001-002.jpg", legend: "Fortuité 2 - Acrylique et pastel, 100x80 cm" },
+                        { src: "images-toile/toile-serie001-003.jpg", legend: "Fortuité 3 - Inspiration CoBrA, toile libre" },
+                        { src: "images-toile/toile-serie001-004.jpg", legend: "Fortuité 1 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
+                        { src: "images-toile/toile-serie001-005.jpg", legend: "Fortuité 4 - Peinture à l'huile, 2022" }
                     ]
                 },
                 {
-                    series: "Série 'Derrière le Mur'",
+                    series: "Derrière le Mur",
                     images: [
-                        { src: "images-toile/toile-serie002-001.jpg", legend: "Derrière le Mur 1 / Acrylique et autres techniques sur toile / 50cm x 130cm" },
-                        { src: "images-toile/toile-serie002-002.jpg", legend: "Derrière le Mur 2 / Acrylique et autres techniques sur toile / 50cm x 130cm" }
+                        { src: "images-toile/toile-serie002-001.jpg", legend: "Abstraction 1 - Abstraction géométrique" },
+                        { src: "images-toile/toile-serie002-002.jpg", legend: "Abstraction 3 - Série 'Horizons'" }
                     ]
                 }
             ],
@@ -313,9 +332,9 @@
                     ]
                 },
                 {
-                    series: "Série 'Bientôt Fini'",
+                    series: "Série 'Bientôt la Fin ?'",
                     images: [
-                        { src: "images-papier/papier-serie001-000.jpg", legend: "Série 'Bientôt Fini' - Dessin 1" },
+                        { src: "images-papier/papier-serie001-000.jpg", legend: "Série 'Bientôt la Fin ?' - Dessin 1" },
                         { src: "images-papier/papier-serie001-001.jpg", legend: "Dessin 1 - Fusain et pastel" },
                         { src: "images-papier/papier-serie001-002.jpg", legend: "Dessin 2 - Fusain et pastel" },
                         { src: "images-papier/papier-serie001-003.jpg", legend: "Dessin 3 - Fusain et pastel" },
@@ -395,7 +414,7 @@
             document.getElementById("galleryModal").style.display = "none";
         }
 
-        // Ouvre une image en grand (avec légende)
+        // Ouvre une image en grand (avec légende à gauche)
         function openFullImage(src, legend) {
             const modal = document.getElementById("fullImageModal");
             const img = document.getElementById("fullImageContent");
