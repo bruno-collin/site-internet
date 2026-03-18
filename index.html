@@ -300,7 +300,7 @@
                 {
                     series: "Fortuité",
                     images: [
-                        { src: "images-toile/toile-serie001-001.jpg", legend: "Fortuité 1<br>Acrylique et autres techniques sur toile<br>90cm x 130cm<br>2026" },
+                        { src: "images-toile/toile-serie001-001.jpg", legend: "Fortuité 1\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2026" },
                         { src: "images-toile/toile-serie001-002.jpg", legend: "Fortuité 2 - Acrylique et pastel, 100x80 cm" },
                         { src: "images-toile/toile-serie001-003.jpg", legend: "Fortuité 3 - Inspiration CoBrA, toile libre" },
                         { src: "images-toile/toile-serie001-004.jpg", legend: "Fortuité 1 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
@@ -415,16 +415,29 @@
         }
 
         // Ouvre une image en grand (avec légende à gauche)
+        //function openFullImage(src, legend) {
+          //  const modal = document.getElementById("fullImageModal");
+          //  const img = document.getElementById("fullImageContent");
+          //  const legendElement = document.getElementById("fullImageLegend");
+
+            //img.src = src;
+            //legendElement.textContent = legend;
+            //modal.style.display = "flex";
+        // }
+
+        // Ouvre une image en grand (avec légende à gauche)
+        // et transforme le saut de ligne \n en <br>
         function openFullImage(src, legend) {
             const modal = document.getElementById("fullImageModal");
             const img = document.getElementById("fullImageContent");
-            const legendElement = document.getElementById("fullImageLegend");
+        const legendElement = document.getElementById("fullImageLegend");
 
-            img.src = src;
-            legendElement.textContent = legend;
-            modal.style.display = "flex";
+        img.src = src;
+        // Remplace les sauts de ligne par des balises <br>
+        legendElement.innerHTML = legend.replace(/\n/g, '<br>');
+        modal.style.display = "flex";
         }
-
+        
         // Ferme l'image agrandie
         function closeFullImage() {
             document.getElementById("fullImageModal").style.display = "none";
