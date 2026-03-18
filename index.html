@@ -132,22 +132,36 @@
             z-index: 1001;
         }
 
-        /* Galerie en colonne unique avec images plus grandes */
+        /* Galerie organisée par séries */
         .modal-gallery {
-            display: grid;
-            grid-template-columns: 1fr; /* Une seule colonne */
-            gap: 30px; /* Espacement entre les images */
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 80px auto 40px;
             padding: 0 20px;
         }
 
-        /* Images plus grandes dans la galerie (90% de leur taille réelle) */
-        .modal-gallery img {
-            width: auto;
-            max-width: 100%;
-            max-height: 600px; /* Hauteur augmentée */
-            transform: scale(0.90); /* 90% de la taille réelle */
+        .series-container {
+            margin-bottom: 40px;
+        }
+
+        .series-title {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .series-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .series-images img {
+            max-width: 300px;
+            max-height: 300px;
+            transform: scale(1);
             transform-origin: center;
             object-fit: contain;
             border-radius: 8px;
@@ -157,8 +171,7 @@
             display: block;
         }
 
-        /* Zoom à 105% au survol */
-        .modal-gallery img:hover {
+        .series-images img:hover {
             transform: scale(1.05);
         }
 
@@ -245,29 +258,64 @@
     </footer>
 
     <script>
-        // Liste des images pour chaque galerie (avec légendes)
+        // Liste des images pour chaque galerie (organisées par séries)
         const galleries = {
             toile: [
-                { src: "images-toile/toile-001.jpg", legend: "Fortuité 1 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
-                { src: "images-toile/toile-002.jpg", legend: "Fortuité 2 - Acrylique et pastel, 100x80 cm" },
-                { src: "images-toile/toile-003.jpg", legend: "Œuvre 3 - Inspiration CoBrA, toile libre" },
-                { src: "images-toile/toile-004.jpg", legend: "Œuvre 4 - Peinture à l'huile, 2022" },
-                { src: "images-toile/toile-005.jpg", legend: "Œuvre 5 - Abstraction géométrique" },
-                { src: "images-toile/toile-006.jpg", legend: "Œuvre 6 - Collage et peinture" },
-                { src: "images-toile/toile-007.jpg", legend: "Œuvre 7 - Série 'Horizons'" }
+                {
+                    series: "Fortuité",
+                    images: [
+                        { src: "images-toile/toile-001.jpg", legend: "Fortuité 1 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
+                        { src: "images-toile/toile-002.jpg", legend: "Fortuité 2 - Acrylique et pastel, 100x80 cm" }
+                    ]
+                },
+                {
+                    series: "Abstraction",
+                    images: [
+                        { src: "images-toile/toile-003.jpg", legend: "Œuvre 3 - Inspiration CoBrA, toile libre" },
+                        { src: "images-toile/toile-004.jpg", legend: "Œuvre 4 - Peinture à l'huile, 2022" },
+                        { src: "images-toile/toile-005.jpg", legend: "Œuvre 5 - Abstraction géométrique" }
+                    ]
+                },
+                {
+                    series: "Horizons",
+                    images: [
+                        { src: "images-toile/toile-006.jpg", legend: "Œuvre 6 - Collage et peinture" },
+                        { src: "images-toile/toile-007.jpg", legend: "Œuvre 7 - Série 'Horizons'" }
+                    ]
+                }
             ],
             papier: [
-                { src: "images-papier/papier-001.jpg", legend: "Monotype - Encre et aquarelle, 50x70 cm" },
-                { src: "images-papier/papier-002.jpg", legend: "Collage - Papier déchiré et peinture" },
-                { src: "images-papier/papier-003.jpg", legend: "Dessin - Fusain et pastel" },
-                { src: "images-papier/papier-004.jpg", legend: "Estampe - Technique mixte" },
-                { src: "images-papier/papier-005.jpg", legend: "Aquarelle - Série 'Nature'" }
+                {
+                    series: "Monotypes",
+                    images: [
+                        { src: "images-papier/papier-001.jpg", legend: "Monotype - Encre et aquarelle, 50x70 cm" },
+                        { src: "images-papier/papier-002.jpg", legend: "Collage - Papier déchiré et peinture" }
+                    ]
+                },
+                {
+                    series: "Dessins",
+                    images: [
+                        { src: "images-papier/papier-003.jpg", legend: "Dessin - Fusain et pastel" },
+                        { src: "images-papier/papier-004.jpg", legend: "Estampe - Technique mixte" },
+                        { src: "images-papier/papier-005.jpg", legend: "Aquarelle - Série 'Nature'" }
+                    ]
+                }
             ],
             "3d": [
-                { src: "images-3d/3d-001.jpg", legend: "Sculpture - Carton et peinture, 2024" },
-                { src: "images-3d/3d-002.jpg", legend: "Installation - Matériaux recyclés" },
-                { src: "images-3d/3d-003.jpg", legend: "Assemblage - Bois et métal" },
-                { src: "images-3d/3d-004.jpg", legend: "Volume - Papier mâché" }
+                {
+                    series: "Sculptures",
+                    images: [
+                        { src: "images-3d/3d-001.jpg", legend: "Sculpture - Carton et peinture, 2024" },
+                        { src: "images-3d/3d-002.jpg", legend: "Installation - Matériaux recyclés" }
+                    ]
+                },
+                {
+                    series: "Assemblages",
+                    images: [
+                        { src: "images-3d/3d-003.jpg", legend: "Assemblage - Bois et métal" },
+                        { src: "images-3d/3d-004.jpg", legend: "Volume - Papier mâché" }
+                    ]
+                }
             ]
         };
 
@@ -287,12 +335,28 @@
             // Vide le contenu précédent
             galleryContent.innerHTML = "";
 
-            // Affiche les images de la galerie
-            galleries[type].forEach(item => {
-                const legendEscaped = item.legend.replace(/'/g, "\\'");
-                galleryContent.innerHTML += `
-                    <img src="${item.src}" onclick="openFullImage('${item.src}', '${legendEscaped}')">
-                `;
+            // Affiche les séries de la galerie
+            galleries[type].forEach(series => {
+                const seriesDiv = document.createElement("div");
+                seriesDiv.className = "series-container";
+
+                const seriesTitle = document.createElement("h3");
+                seriesTitle.className = "series-title";
+                seriesTitle.textContent = series.series;
+                seriesDiv.appendChild(seriesTitle);
+
+                const seriesImagesDiv = document.createElement("div");
+                seriesImagesDiv.className = "series-images";
+
+                series.images.forEach(image => {
+                    const img = document.createElement("img");
+                    img.src = image.src;
+                    img.onclick = () => openFullImage(image.src, image.legend);
+                    seriesImagesDiv.appendChild(img);
+                });
+
+                seriesDiv.appendChild(seriesImagesDiv);
+                galleryContent.appendChild(seriesDiv);
             });
 
             modal.style.display = "block";
