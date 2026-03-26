@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Artiste - Bruno Collin</title>
     <style>
+        /* Styles globaux */
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
@@ -96,6 +97,7 @@
             opacity: 0.7;
         }
 
+        /* Styles pour les modales */
         #galleryModal {
             display: none;
             position: fixed;
@@ -133,6 +135,7 @@
             z-index: 1001;
         }
 
+        /* Galerie organisée par séries */
         .modal-gallery {
             max-width: 1200px;
             margin: 80px auto 40px;
@@ -193,30 +196,30 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
             z-index: 1001;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
+            align-items: center;
         }
 
         .modal-image-full img {
-            max-width: 70%;
-            max-height: 70vh;
+            max-width: 90%;
+            max-height: 90%;
             border-radius: 10px;
             object-fit: contain;
         }
 
+        /* Style pour la légende de l'image agrandie */
         #fullImageLegend {
+            position: absolute;
+            bottom: 20px;
             color: white;
+            text-align: center;
             font-size: 16px;
             background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
+            padding: 10px;
             border-radius: 5px;
-            max-width: 300px;
-            margin-right: 20px;
-            text-align: left;
-            flex-shrink: 0;
+            max-width: 80%;
+            left: 50%;
+            transform: translateX(-50%);
         }
     </style>
 </head>
@@ -229,35 +232,38 @@
         <h2>Galeries</h2>
         <p>Cliquez sur une image ou sur son titre pour ouvrir la galerie correspondante.</p>
         <div class="home-grid">
+            <!-- Galerie Toile -->
             <div class="home-item" onclick="openGallery('toile')">
-                <img src="images-toile/toile-001.jpg" alt="Œuvres Support Toile">
+                <img src="images-toile/toile-001.jpg">
                 <div class="home-title">Œuvres Support Toile</div>
             </div>
 
+            <!-- Galerie Papier -->
             <div class="home-item" onclick="openGallery('papier')">
-                <img src="images-papier/papier-serie001-000.jpg" alt="Œuvres Support Papier">
+                <img src="images-papier/papier-serie001-000.jpg">
                 <div class="home-title">Œuvres Support Papier</div>
             </div>
 
+            <!-- Galerie 3D -->
             <div class="home-item" onclick="openGallery('3d')">
-                <img src="images-3d/3d-001.jpg" alt="Œuvres 3D">
+                <img src="images-3d/3d-001.jpg">
                 <div class="home-title">Œuvres 3D</div>
             </div>
         </div>
     </section>
 
+    <!-- Modale pour les galeries -->
     <div id="galleryModal">
         <h2 id="galleryTitle"></h2>
         <span class="modal-close" onclick="closeGallery()">&times;</span>
         <div class="modal-gallery" id="modalGalleryContent"></div>
     </div>
 
+    <!-- Modale pour l'image agrandie (avec légende) -->
     <div id="fullImageModal" class="modal-image-full" onclick="closeFullImage()">
         <span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">&times;</span>
-        <div style="display: flex; align-items: center; max-width: 90vw; max-height: 90vh;">
-            <div id="fullImageLegend"></div>
-            <img id="fullImageContent" onclick="event.stopPropagation()" style="max-width: 70%; max-height: 70vh; border-radius: 10px; object-fit: contain;">
-        </div>
+        <img id="fullImageContent" onclick="event.stopPropagation()">
+        <div id="fullImageLegend"></div>
     </div>
 
     <footer>
@@ -269,6 +275,7 @@
     </footer>
 
     <script>
+        // Liste des images pour chaque galerie (organisées par séries)
         const galleries = {
             toile: [
                 {
@@ -300,11 +307,109 @@
                 {
                     series: "Série 'Envahissement'",
                     images: [
-                        { src: "images-papier/papier-serie003-001.jpg", legend: "Envahissement 03 - Acrylique, découpage et collage sur papier, 50cm x 65cm" },
-                        { src: "images-papier/papier-serie003-002.jpg", legend: "Envahissement 04 - Acrylique, découpage et collage sur papier, 50cm x 65cm" },
-                        { src: "images-papier/papier-serie003-003.jpg", legend: "Envahissement 05 - Acrylique, découpage et collage sur papier, 50cm x 65cm" }
+                        { src: "images-papier/papier-serie003-003.jpg", legend: "Envahissement 03 - Acrylique, découpage et collage sur papier, 50cm x 65cm" },
+                        { src: "images-papier/papier-serie003-004.jpg", legend: "Envahissement 04 - Acrylique, découpage et collage sur papier, 50cm x 65cm" },
+                        { src: "images-papier/papier-serie003-005.jpg", legend: "Envahissement 05 - Acrylique, découpage et collage sur papier, 50cm x 65cm" }
                     ]
                 },
                 {
                     series: "Série 'Bientôt Fini'",
-                    images:
+                    images: [
+                        { src: "images-papier/papier-serie001-000.jpg", legend: "Série 'Bientôt Fini' - Dessin 1" },
+                        { src: "images-papier/papier-serie001-001.jpg", legend: "Dessin 1 - Fusain et pastel" },
+                        { src: "images-papier/papier-serie001-002.jpg", legend: "Dessin 2 - Fusain et pastel" },
+                        { src: "images-papier/papier-serie001-003.jpg", legend: "Dessin 3 - Fusain et pastel" },
+                        { src: "images-papier/papier-serie001-004.jpg", legend: "Dessin 4 - Fusain et pastel" },
+                        { src: "images-papier/papier-serie001-005.jpg", legend: "Dessin 5 - Fusain et pastel" },
+                        { src: "images-papier/papier-serie001-006.jpg", legend: "Dessin 6 - Fusain et pastel" },
+                        { src: "images-papier/papier-serie001-007.jpg", legend: "Dessin 7 - Fusain et pastel" },
+                        { src: "images-papier/papier-serie001-008.jpg", legend: "Dessin 8 - Fusain et pastel" },
+                        { src: "images-papier/papier-serie001-009.jpg", legend: "Dessin 9 - Fusain et pastel" }
+                    ]
+                }
+            ],
+            "3d": [
+                {
+                    series: "Sculptures",
+                    images: [
+                        { src: "images-3d/3d-001.jpg", legend: "Sculpture 1 - Carton et peinture, 2024" },
+                        { src: "images-3d/3d-002.jpg", legend: "Sculpture 2 - Installation, matériaux recyclés" }
+                    ]
+                },
+                {
+                    series: "Assemblages",
+                    images: [
+                        { src: "images-3d/3d-003.jpg", legend: "Assemblage 1 - Bois et métal" },
+                        { src: "images-3d/3d-004.jpg", legend: "Assemblage 2 - Volume, papier mâché" }
+                    ]
+                }
+            ]
+        };
+
+        // Ouvre une galerie dans la modale
+        function openGallery(type) {
+            const modal = document.getElementById("galleryModal");
+            const galleryContent = document.getElementById("modalGalleryContent");
+            const galleryTitle = document.getElementById("galleryTitle");
+
+            // Définit le titre en fonction du type de galerie
+            let title = "";
+            if (type === "toile") title = "Œuvres Support Toile";
+            else if (type === "papier") title = "Œuvres Support Papier";
+            else if (type === "3d") title = "Œuvres 3D";
+            galleryTitle.textContent = title;
+
+            // Vide le contenu précédent
+            galleryContent.innerHTML = "";
+
+            // Affiche les séries de la galerie
+            galleries[type].forEach(series => {
+                const seriesDiv = document.createElement("div");
+                seriesDiv.className = "series-container";
+
+                const seriesTitle = document.createElement("div");
+                seriesTitle.className = "series-title";
+                seriesTitle.textContent = series.series;
+                seriesDiv.appendChild(seriesTitle);
+
+                const seriesImagesDiv = document.createElement("div");
+                seriesImagesDiv.className = "series-images";
+
+                series.images.forEach(image => {
+                    const img = document.createElement("img");
+                    img.src = image.src;
+                    img.onclick = () => openFullImage(image.src, image.legend);
+                    seriesImagesDiv.appendChild(img);
+                });
+
+                seriesDiv.appendChild(seriesImagesDiv);
+                galleryContent.appendChild(seriesDiv);
+            });
+
+            modal.style.display = "block";
+            modal.scrollTop = 0;
+        }
+
+        // Ferme la modale de galerie
+        function closeGallery() {
+            document.getElementById("galleryModal").style.display = "none";
+        }
+
+        // Ouvre une image en grand (avec légende)
+        function openFullImage(src, legend) {
+            const modal = document.getElementById("fullImageModal");
+            const img = document.getElementById("fullImageContent");
+            const legendElement = document.getElementById("fullImageLegend");
+
+            img.src = src;
+            legendElement.textContent = legend;
+            modal.style.display = "flex";
+        }
+
+        // Ferme l'image agrandie
+        function closeFullImage() {
+            document.getElementById("fullImageModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
