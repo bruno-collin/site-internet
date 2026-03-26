@@ -203,6 +203,8 @@
     box-sizing: border-box;
 }
 
+    
+
         .modal-image-full img {
             max-width: 90%;
             max-height: 90%;
@@ -211,6 +213,7 @@
         }
 
         /* Style pour la légende de l'image agrandie */
+
 
 #fullImageLegend {
     color: white;
@@ -221,7 +224,9 @@
     max-width: 300px;
     margin-right: 20px;
     text-align: left;
+    flex-shrink: 0;
 }
+ 
     
     </style>
 </head>
@@ -262,13 +267,14 @@
     </div>
 
     <!-- Modale pour l'image agrandie (avec légende à gauche) -->
-    <div id="fullImageModal" class="modal-image-full" onclick="closeFullImage()">
-        <span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">&times; </span>
-        <div style="display: flex; align-items: center; max-width: 90%; max-height: 90%;">
-            <div id="fullImageLegend"></div>
-            <img id="fullImageContent" onclick="event.stopPropagation()" style="max-width: 70%; max-height: 70vh; border-radius: 10px; object-fit: contain;">
-        </div>
+<div id="fullImageModal" class="modal-image-full" onclick="closeFullImage()">
+    <span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">&times;</span>
+    <div style="display: flex; align-items: center; max-width: 90vw; max-height: 90vh;">
+        <div id="fullImageLegend"></div>
+        <img id="fullImageContent" onclick="event.stopPropagation()" style="max-width: 70%; max-height: 70vh; border-radius: 10px; object-fit: contain;">
     </div>
+</div>
+    
     
     <footer>
         <div class="footer-buttons">
