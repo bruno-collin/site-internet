@@ -29,6 +29,7 @@
 
         section {
             padding: 60px 10%;
+            min-height: calc(100vh - 200px);
         }
 
         .home-grid {
@@ -98,29 +99,21 @@
             opacity: 0.7;
         }
 
-        /* Styles pour les modales - CORRIGÉ */
+        /* Styles pour les modales */
         .modal {
-            display: none !important;
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1000;
+            overflow-y: auto;
         }
 
         #galleryModal {
             background: rgba(0, 0, 0, 0.9);
-            overflow-y: auto;
             padding: 20px 0;
-        }
-
-        #fullImageModal {
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
         }
 
         #galleryTitle {
@@ -146,10 +139,15 @@
             z-index: 1002;
         }
 
+        .modal-content {
+            margin-top: 80px;
+            padding: 20px;
+        }
+
         /* Galerie organisée par séries */
         .modal-gallery {
             max-width: 1200px;
-            margin: 80px auto 40px;
+            margin: 0 auto;
             padding: 0 20px;
         }
 
@@ -171,7 +169,6 @@
             overflow-x: auto;
             gap: 20px;
             padding-bottom: 10px;
-            padding-left: 20px;
         }
 
         .series-images::-webkit-scrollbar {
@@ -186,7 +183,6 @@
         .series-images img {
             max-width: 300px;
             max-height: 300px;
-            transform: scale(1);
             object-fit: contain;
             border-radius: 8px;
             cursor: pointer;
@@ -198,12 +194,27 @@
             transform: scale(1.05);
         }
 
+        /* Modale pour l'image agrandie */
+        #fullImageModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
         .full-image-container {
             display: flex;
             max-width: 90%;
-            max-height: 90%;
-            align-items: center;
             gap: 30px;
+            align-items: center;
         }
 
         .full-image-legend {
@@ -220,217 +231,4 @@
             max-width: 70%;
             max-height: 90vh;
             border-radius: 8px;
-            object-fit: contain;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Bruno Collin Plasticien</h1>
-    </header>
-
-    <section>
-        <h2>Galeries</h2>
-        <p>Cliquez sur une image ou sur son titre pour ouvrir la galerie correspondante.</p>
-        <div class="home-grid">
-            <!-- Galerie Toile -->
-            <div class="home-item" onclick="openGallery('toile')">
-                <img src="images-toile/toile-001.jpg">
-                <div class="home-title">Œuvres Support Toile</div>
-            </div>
-
-            <!-- Galerie Papier -->
-            <div class="home-item" onclick="openGallery('papier')">
-                <img src="images-papier/papier-serie001-000.jpg">
-                <div class="home-title">Œuvres Support Papier</div>
-            </div>
-
-            <!-- Galerie 3D -->
-            <div class="home-item" onclick="openGallery('3d')">
-                <img src="images-3d/3d-001.jpg">
-                <div class="home-title">Œuvres 3D</div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-buttons">
-            <a href="demarche.html" class="button">Démarche</a>
-            <a href="contact.html" class="button">Contact</a>
-        </div>
-        © 2026 Portfolio Artiste
-    </footer>
-
-    <!-- Modales avec classe commune et styles inline pour double sécurité -->
-    <div id="galleryModal" class="modal" style="display: none !important;">
-        <h2 id="galleryTitle"></h2>
-        <span class="modal-close" onclick="closeGallery()">&times;</span>
-        <div class="modal-gallery" id="modalGalleryContent"></div>
-    </div>
-
-    <div id="fullImageModal" class="modal" style="display: none !important;">
-        <span class="modal-close" onclick="closeFullImage()">&times;</span>
-        <div class="full-image-container">
-            <div class="full-image-legend" id="fullImageLegend"></div>
-            <img id="fullImageContent" onclick="event.stopPropagation()">
-        </div>
-    </div>
-
-    <script>
-        // Liste des images pour chaque galerie (organisées par séries)
-        const galleries = {
-            toile: [
-                {
-                    series: "Fortuité",
-                    images: [
-                        { src: "images-toile/toile-001.jpg", legend: "Fortuité 1 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
-                        { src: "images-toile/toile-002.jpg", legend: "Fortuité 2 - Acrylique et pastel, 100x80 cm" },
-                        { src: "images-toile/toile-003.jpg", legend: "Fortuité 3 - Inspiration CoBrA, toile libre" },
-                        { src: "images-toile/toile-004.jpg", legend: "Fortuité 4 - Peinture à l'huile, 2022" }
-                    ]
-                },
-                {
-                    series: "Abstraction",
-                    images: [
-                        { src: "images-toile/toile-005.jpg", legend: "Abstraction 1 - Abstraction géométrique" },
-                        { src: "images-toile/toile-006.jpg", legend: "Abstraction 2 - Collage et peinture" },
-                        { src: "images-toile/toile-007.jpg", legend: "Abstraction 3 - Série 'Horizons'" }
-                    ]
-                }
-            ],
-            papier: [
-                {
-                    series: "Série 'Monotypes'",
-                    images: [
-                        { src: "images-papier/papier-serie002-001.jpg", legend: "Monotype 1 - Acrylique sur papier, 50cm x 65cm" },
-                        { src: "images-papier/papier-serie002-001.jpg", legend: "Monotype 2 - Acrylique sur papier, 50cm x 65cm" }
-                    ]
-                },
-                {
-                    series: "Série 'Envahissement'",
-                    images: [
-                        { src: "images-papier/papier-serie003-003.jpg", legend: "Envahissement 03 - Acrylique, découpage et collage sur papier, 50cm x 65cm" },
-                        { src: "images-papier/papier-serie003-004.jpg", legend: "Envahissement 04 - Acrylique, découpage et collage sur papier, 50cm x 65cm" },
-                        { src: "images-papier/papier-serie003-005.jpg", legend: "Envahissement 05 - Acrylique, découpage et collage sur papier, 50cm x 65cm" }
-                    ]
-                },
-                {
-                    series: "Série 'Bientôt Fini'",
-                    images: [
-                        { src: "images-papier/papier-serie001-000.jpg", legend: "Série 'Bientôt Fini' - Dessin 1" },
-                        { src: "images-papier/papier-serie001-001.jpg", legend: "Dessin 1 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-002.jpg", legend: "Dessin 2 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-003.jpg", legend: "Dessin 3 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-004.jpg", legend: "Dessin 4 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-005.jpg", legend: "Dessin 5 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-006.jpg", legend: "Dessin 6 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-007.jpg", legend: "Dessin 7 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-008.jpg", legend: "Dessin 8 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-009.jpg", legend: "Dessin 9 - Fusain et pastel" }
-                    ]
-                }
-            ],
-            "3d": [
-                {
-                    series: "Sculptures",
-                    images: [
-                        { src: "images-3d/3d-001.jpg", legend: "Sculpture 1 - Carton et peinture, 2024" },
-                        { src: "images-3d/3d-002.jpg", legend: "Sculpture 2 - Installation, matériaux recyclés" }
-                    ]
-                },
-                {
-                    series: "Assemblages",
-                    images: [
-                        { src: "images-3d/3d-003.jpg", legend: "Assemblage 1 - Bois et métal" },
-                        { src: "images-3d/3d-004.jpg", legend: "Assemblage 2 - Volume, papier mâché" }
-                    ]
-                }
-            ]
-        };
-
-        // Ouvre une galerie dans la modale
-        function openGallery(type) {
-            const modal = document.getElementById("galleryModal");
-            const galleryContent = document.getElementById("modalGalleryContent");
-            const galleryTitle = document.getElementById("galleryTitle");
-
-            // Définit le titre en fonction du type de galerie
-            let title = "";
-            if (type === "toile") title = "Œuvres Support Toile";
-            else if (type === "papier") title = "Œuvres Support Papier";
-            else if (type === "3d") title = "Œuvres 3D";
-            galleryTitle.textContent = title;
-
-            // Vide le contenu précédent
-            galleryContent.innerHTML = "";
-
-            // Affiche les séries de la galerie
-            galleries[type].forEach(series => {
-                const seriesDiv = document.createElement("div");
-                seriesDiv.className = "series-container";
-
-                const seriesTitle = document.createElement("div");
-                seriesTitle.className = "series-title";
-                seriesTitle.textContent = series.series;
-                seriesDiv.appendChild(seriesTitle);
-
-                const seriesImagesDiv = document.createElement("div");
-                seriesImagesDiv.className = "series-images";
-
-                series.images.forEach(image => {
-                    const img = document.createElement("img");
-                    img.src = image.src;
-                    img.onclick = () => openFullImage(image.src, image.legend);
-                    seriesImagesDiv.appendChild(img);
-                });
-
-                seriesDiv.appendChild(seriesImagesDiv);
-                galleryContent.appendChild(seriesDiv);
-            });
-
-            // Affiche la modale
-            modal.style.display = "block";
-            document.body.style.overflow = "hidden";
-        }
-
-        // Ferme la modale de galerie
-        function closeGallery() {
-            document.getElementById("galleryModal").style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-
-        // Ouvre une image en grand (avec légende)
-        function openFullImage(src, legend) {
-            const modal = document.getElementById("fullImageModal");
-            const img = document.getElementById("fullImageContent");
-            const legendElement = document.getElementById("fullImageLegend");
-
-            img.src = src;
-            legendElement.innerHTML = legend.replace(/\n/g, '<br>');
-            modal.style.display = "flex";
-            document.body.style.overflow = "hidden";
-        }
-
-        // Ferme l'image agrandie
-        function closeFullImage() {
-            document.getElementById("fullImageModal").style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-
-        // Ferme les modales avec Échap
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeGallery();
-                closeFullImage();
-            }
-        });
-
-        // Ferme si clic en dehors de l'image
-        document.getElementById("fullImageModal").addEventListener("click", (e) => {
-            if (e.target === e.currentTarget) {
-                closeFullImage();
-            }
-        });
-    </script>
-</body>
-</html>
+            o
