@@ -260,14 +260,14 @@
     </section> 
 
     <!-- Modale pour les galeries -->
-    <div id="galleryModal">
+    <div id="galleryModal" style="display: none;">
         <h2 id="galleryTitle"></h2>
         <span class="modal-close" onclick="closeGallery()">&times;</span>
         <div class="modal-gallery" id="modalGalleryContent"></div>
     </div>
 
     <!-- Modale pour l'image agrandie (avec légende à gauche) -->
-<div id="fullImageModal" class="modal-image-full" onclick="closeFullImage()">
+<div id="fullImageModal" class="modal-image-full" style="display: none;" onclick="closeFullImage()">
     <span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">&times;</span>
     <div style="display: flex; align-items: center; max-width: 90vw; max-height: 90vh;">
         <div id="fullImageLegend"></div>
