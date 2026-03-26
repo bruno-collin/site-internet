@@ -241,9 +241,10 @@
         <div class="home-grid">
             <!-- Galerie Toile -->
             <div class="home-item" onclick="openGallery('toile')">
-                <img src="images-toile/toile-serie001-001.jpg">
-                <div class="home-title">Peintures sur Toile</div>
+                <img src="images-toile/toile-001.jpg" style="cursor: pointer;">
+                <div class="home-title" style="cursor: pointer;">Peintures sur Toile</div>
             </div>
+            
 
             <!-- Galerie Papier -->
             <div class="home-item" onclick="openGallery('papier')">
@@ -403,49 +404,91 @@
         };
 
         // Ouvre une galerie dans la modale
+function openGallery(type) {
+    const modal = document.getElementById("galleryModal");
+    const galleryContent = document.getElementById("modalGalleryContent");
+    const galleryTitle = document.getElementById("galleryTitle");
+
+    // Définit le titre en fonction du type de galerie
+    let title = "";
+    if (type === "toile") title = "Œuvres Support Toile";
+    else if (type === "papier") title = "Œuvres Support Papier";
+    else if (type === "3d") title = "Œuvres 3D";
+    galleryTitle.textContent = title;
+
+    // Vide le contenu précédent
+    galleryContent.innerHTML = "";
+
+    // Affiche les séries de la galerie
+    galleries[type].forEach(series => {
+        const seriesDiv = document.createElement("div");
+        seriesDiv.className = "series-container";
+
+        const seriesTitle = document.createElement("div");
+        seriesTitle.className = "series-title";
+        seriesTitle.textContent = series.series;
+        seriesDiv.appendChild(seriesTitle);
+
+        const seriesImagesDiv = document.createElement("div");
+        seriesImagesDiv.className = "series-images";
+
+        series.images.forEach(image => {
+            const img = document.createElement("img");
+            img.src = image.src;
+            img.onclick = function() { openFullImage(image.src, image.legend); };
+            seriesImagesDiv.appendChild(img);
+        });
+
+        seriesDiv.appendChild(seriesImagesDiv);
+        galleryContent.appendChild(seriesDiv);
+    });
+
+    modal.style.display = "block";
+    modal.scrollTop = 0;
+}
+        
         function openGallery(type) {
-            const modal = document.getElementById("galleryModal");
-            const galleryContent = document.getElementById("modalGalleryContent");
-            const galleryTitle = document.getElementById("galleryTitle");
+    const modal = document.getElementById("galleryModal");
+    const galleryContent = document.getElementById("modalGalleryContent");
+    const galleryTitle = document.getElementById("galleryTitle");
 
-            // Définit le titre en fonction du type de galerie
-            let title = "";
-            if (type === "toile") title = "Peintures sur Toile";
-            else if (type === "papier") title = "Œuvres sur Papier";
-            else if (type === "3d") title = "Volumes";
-            galleryTitle.textContent = title;
+    // Définit le titre en fonction du type de galerie
+    let title = "";
+    if (type === "toile") title = "Œuvres Support Toile";
+    else if (type === "papier") title = "Œuvres Support Papier";
+    else if (type === "3d") title = "Œuvres 3D";
+    galleryTitle.textContent = title;
 
-            // Vide le contenu précédent
-            galleryContent.innerHTML = "";
+    // Vide le contenu précédent
+    galleryContent.innerHTML = "";
 
-            // Affiche les séries de la galerie
-            galleries[type].forEach(series => {
-                const seriesDiv = document.createElement("div");
-                seriesDiv.className = "series-container";
+    // Affiche les séries de la galerie
+    galleries[type].forEach(series => {
+        const seriesDiv = document.createElement("div");
+        seriesDiv.className = "series-container";
 
-                const seriesTitle = document.createElement("div");
-                seriesTitle.className = "series-title";
-                seriesTitle.textContent = series.series;
-                seriesDiv.appendChild(seriesTitle);
+        const seriesTitle = document.createElement("div");
+        seriesTitle.className = "series-title";
+        seriesTitle.textContent = series.series;
+        seriesDiv.appendChild(seriesTitle);
 
-                const seriesImagesDiv = document.createElement("div");
-                seriesImagesDiv.className = "series-images";
+        const seriesImagesDiv = document.createElement("div");
+        seriesImagesDiv.className = "series-images";
 
-                series.images.forEach(image => {
-                    const img = document.createElement("img");
-                    img.src = image.src;
-                    img.onclick = () => openFullImage(image.src, image.legend);
-                    seriesImagesDiv.appendChild(img);
-                });
+        series.images.forEach(image => {
+            const img = document.createElement("img");
+            img.src = image.src;
+            img.onclick = function() { openFullImage(image.src, image.legend); };
+            seriesImagesDiv.appendChild(img);
+        });
 
-                seriesDiv.appendChild(seriesImagesDiv);
-                galleryContent.appendChild(seriesDiv);
-            });
+        seriesDiv.appendChild(seriesImagesDiv);
+        galleryContent.appendChild(seriesDiv);
+    });
 
-            modal.style.display = "block";
-            modal.scrollTop = 0;
-        }
-
+    modal.style.display = "block";
+    modal.scrollTop = 0;
+}
         // Ferme la modale de galerie
         function closeGallery() {
             document.getElementById("galleryModal").style.display = "none";
