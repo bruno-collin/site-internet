@@ -5,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Artiste - Bruno Collin</title>
     <style>
-        /* Styles globaux */
-        body {
+        /* Reset et styles de base */
+        * {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #111;
-            color: #fff;
-            overflow-x: hidden;
+            padding: 0;
+            box-sizing: border-box;
         }
 
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #111;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* En-tête */
         header {
             padding: 30px;
             text-align: center;
-            background: #000;
+            background-color: #000;
             border-bottom: 1px solid #333;
         }
 
@@ -27,69 +33,60 @@
             letter-spacing: 2px;
         }
 
+        /* Section principale */
         section {
             padding: 60px 10%;
-            min-height: 100vh;
+            text-align: center;
         }
 
+        section h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        section p {
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+
+        /* Grille des galeries */
         .home-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmin(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
+        /* Style des vignettes */
         .home-item {
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
             text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .home-item:hover {
+            transform: translateY(-5px);
         }
 
         .home-item img {
             width: 100%;
-            height: 420px;
+            height: 300px;
             object-fit: cover;
-            border-radius: 12px;
-            transition: transform 0.4s;
-            margin-bottom: 10px;
-        }
-
-        .home-item:hover img {
-            transform: scale(1.05);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .home-title {
-            width: 100%;
-            text-align: center;
-            color: white;
-            padding: 10px 0;
             font-size: 18px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .home-title:hover {
-            color: #ccc;
-        }
-
-        .button {
-            background: #333;
             color: #fff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 6px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
             display: inline-block;
-            margin: 5px;
         }
 
-        .footer-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
+        /* Pied de page */
         footer {
             text-align: center;
             padding: 30px;
@@ -99,49 +96,48 @@
             opacity: 0.7;
         }
 
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #555;
+        }
+
         /* Styles pour les modales - initialement cachées */
-        #galleryModal {
+        #galleryModal, #fullImageModal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 1000;
-            overflow-y: auto;
-            padding: 20px 0;
         }
 
-        #fullImageModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1001;
-            overflow-y: auto;
-        }
-
-        /* Le reste de vos styles CSS... */
         #galleryTitle {
             text-align: center;
             color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 0;
-            z-index: 1000;
+            padding: 20px;
             font-size: 24px;
-            margin-top: 0;
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         .modal-close {
-            position: fixed;
+            position: absolute;
             top: 20px;
             right: 30px;
             color: white;
@@ -153,7 +149,7 @@
         /* Galerie organisée par séries */
         .modal-gallery {
             max-width: 1200px;
-            margin: 80px auto 40px;
+            margin: 80px auto;
             padding: 0 20px;
         }
 
@@ -164,8 +160,6 @@
         .series-title {
             text-align: left;
             font-size: 20px;
-            color: white;
-            font-weight: bold;
             margin-bottom: 15px;
             padding-left: 20px;
         }
@@ -174,57 +168,30 @@
             display: flex;
             overflow-x: auto;
             gap: 20px;
-            padding-bottom: 10px;
-            padding-left: 20px;
-        }
-
-        .series-images::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .series-images::-webkit-scrollbar-thumb {
-            background: #555;
-            border-radius: 4px;
+            padding: 0 20px 10px;
         }
 
         .series-images img {
             max-width: 300px;
             max-height: 300px;
-            transform: scale(1);
             object-fit: contain;
             border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.3s;
-            flex-shrink: 0;
         }
 
-        .series-images img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Modale pour l'image agrandie avec légende à gauche */
+        /* Modale pour l'image agrandie */
         .modal-image-full {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1001;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            box-sizing: border-box;
         }
 
         .full-image-container {
             display: flex;
             max-width: 90%;
-            max-height: 90%;
-            align-items: center;
             gap: 30px;
+            align-items: center;
         }
 
         .full-image-legend {
@@ -235,8 +202,6 @@
             background: rgba(0, 0, 0, 0.5);
             border-radius: 8px;
             text-align: left;
-            overflow-y: auto;
-            max-height: 90vh;
         }
 
         .modal-image-full img {
@@ -244,16 +209,6 @@
             max-height: 90vh;
             border-radius: 8px;
             object-fit: contain;
-        }
-
-        .modal-close-full {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-            z-index: 1002;
         }
     </style>
 </head>
@@ -264,24 +219,25 @@
     </header>
 
     <section>
-        <h2>Galeries</h2>
-        <p>Cliquez sur une image ou sur son titre pour ouvrir la galerie correspondante.</p>
+        <h2>Mes Galeries</h2>
+        <p>Cliquez sur une image pour explorer les œuvres</p>
+
         <div class="home-grid">
             <!-- Galerie Toile -->
             <div class="home-item" onclick="openGallery('toile')">
-                <img src="images-toile/toile-serie001-001.jpg">
+                <img src="images-toile/toile-serie001-001.jpg" alt="Peintures sur toile">
                 <div class="home-title">Peintures sur Toile</div>
             </div>
 
             <!-- Galerie Papier -->
             <div class="home-item" onclick="openGallery('papier')">
-                <img src="images-papier/papier-serie003-003.jpg">
+                <img src="images-papier/papier-serie003-003.jpg" alt="Œuvres sur papier">
                 <div class="home-title">Œuvres sur Papier</div>
             </div>
 
             <!-- Galerie 3D -->
             <div class="home-item" onclick="openGallery('3d')">
-                <img src="images-3d/3d-serie006-001.jpg">
+                <img src="images-3d/3d-serie006-001.jpg" alt="Volumes">
                 <div class="home-title">Volumes</div>
             </div>
         </div>
@@ -292,140 +248,34 @@
             <a href="demarche.html" class="button">Démarche</a>
             <a href="contact.html" class="button">Contact</a>
         </div>
-        © 2026 Portfolio Artiste
+        <p>© 2026 Portfolio Artiste</p>
     </footer>
 
     <!-- Modales initialement cachées -->
-    <!-- Modale pour les galeries -->
     <div id="galleryModal" style="display: none;">
         <h2 id="galleryTitle"></h2>
         <span class="modal-close" onclick="closeGallery()">&times;</span>
         <div class="modal-gallery" id="modalGalleryContent"></div>
     </div>
 
-    <!-- Modale pour l'image agrandie -->
     <div id="fullImageModal" style="display: none;">
-        <span class="modal-close-full" onclick="closeFullImage()">&times;</span>
+        <span class="modal-close" onclick="closeFullImage()">&times;</span>
         <div class="full-image-container">
             <div class="full-image-legend" id="fullImageLegend"></div>
-            <img id="fullImageContent">
+            <img id="fullImageContent" onclick="event.stopPropagation()">
         </div>
     </div>
 
     <script>
-        // Liste des images pour chaque galerie (organisées par séries)
+        // Structure de données complète
         const galleries = {
-            // Vos données de galeries...
-            toile: [
-                {
-                    series: "Fortuité",
-                    images: [
-                        { src: "images-toile/toile-serie001-001.jpg", legend: "Fortuité 1\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2025" },
-                        // ... autres images
-                    ]
-                },
-                // ... autres séries
-            ],
-            papier: [
-                // ... vos données papier
-            ],
-            "3d": [
-                // ... vos données 3d
-            ]
-        };
-
-        // Ouvre une galerie dans la modale
-        function openGallery(type) {
-            const modal = document.getElementById("galleryModal");
-            const galleryContent = document.getElementById("modalGalleryContent");
-            const galleryTitle = document.getElementById("galleryTitle");
-
-            // Définit le titre en fonction du type de galerie
-            let title = "";
-            if (type === "toile") title = "Peintures sur Toile";
-            else if (type === "papier") title = "Œuvres sur Papier";
-            else if (type === "3d") title = "Volumes";
-            galleryTitle.textContent = title;
-
-            // Vide le contenu précédent
-            galleryContent.innerHTML = "";
-
-            // Affiche les séries de la galerie
-            galleries[type].forEach(series => {
-                const seriesDiv = document.createElement("div");
-                seriesDiv.className = "series-container";
-
-                const seriesTitle = document.createElement("div");
-                seriesTitle.className = "series-title";
-                seriesTitle.textContent = series.series;
-                seriesDiv.appendChild(seriesTitle);
-
-                const seriesImagesDiv = document.createElement("div");
-                seriesImagesDiv.className = "series-images";
-
-                series.images.forEach(image => {
-                    const img = document.createElement("img");
-                    img.src = image.src;
-                    img.onclick = (e) => {
-                        e.stopPropagation();
-                        openFullImage(image.src, image.legend);
-                    };
-                    seriesImagesDiv.appendChild(img);
-                });
-
-                seriesDiv.appendChild(seriesImagesDiv);
-                galleryContent.appendChild(seriesDiv);
-            });
-
-            modal.style.display = "block";
-            document.body.style.overflow = "hidden"; // Empêche le scroll de la page principale
-        }
-
-        // Ferme la modale de galerie
-        function closeGallery() {
-            document.getElementById("galleryModal").style.display = "none";
-            document.body.style.overflow = "auto"; // Rétablit le scroll
-        }
-
-        // Ouvre une image en grand (avec légende à gauche)
-        function openFullImage(src, legend) {
-            const modal = document.getElementById("fullImageModal");
-            const img = document.getElementById("fullImageContent");
-            const legendElement = document.getElementById("fullImageLegend");
-
-            img.src = src;
-            legendElement.innerHTML = legend.replace(/\n/g, '<br>');
-            modal.style.display = "block";
-            document.body.style.overflow = "hidden"; // Empêche le scroll
-        }
-
-        // Ferme l'image agrandie
-        function closeFullImage() {
-            document.getElementById("fullImageModal").style.display = "none";
-            document.body.style.overflow = "auto"; // Rétablit le scroll
-        }
-
-        // Ferme les modales si on clique sur Échap
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const galleryModal = document.getElementById("galleryModal");
-                const fullImageModal = document.getElementById("fullImageModal");
-
-                if (galleryModal.style.display === "block") {
-                    closeGallery();
-                }
-                if (fullImageModal.style.display === "block") {
-                    closeFullImage();
-                }
-            }
-        });
-
-        // Ferme la modale d'image agrandie si on clique en dehors de l'image
-        document.getElementById("fullImageModal").addEventListener("click", function(e) {
-            if (e.target === this) {
-                closeFullImage();
-            }
-        });
-    </script>
-</body>
-</html>
+            toile: {
+                title: "Peintures sur Toile",
+                series: [
+                    {
+                        name: "Fortuité",
+                        images: [
+                            { src: "images-toile/toile-serie001-001.jpg", legend: "Fortuité 1\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2025" },
+                            { src: "images-toile/toile-serie001-002.jpg", legend: "Fortuité 2\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2025" }
+                        ]
+                    },
