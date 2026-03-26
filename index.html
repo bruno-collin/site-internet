@@ -241,19 +241,24 @@
         <div class="home-grid">
 
             <!-- Galerie Toile -->
-            <div class="home-item" onclick="openGallery('toile')">
+            <div class="home-item" onclick="openGallery('toile')" style="cursor: pointer;">
                 <img src="images-toile/toile-serie001-001.jpg" style="cursor: pointer;">
                 <div class="home-title" style="cursor: pointer;">Peintures sur Toile</div>
             </div>
-            
 
             <!-- Galerie Papier -->
-            <div class="home-item" onclick="openGallery('papier')">
+            <div class="home-item" onclick="openGallery('papier')" style="cursor: pointer;">
                 <img src="images-papier/papier-serie001-001.jpg" style="cursor: pointer;">
                 <div class="home-title" style="cursor: pointer;">Oeuvres sur Papier</div>
             </div>
 
             <!-- Galerie 3D -->
+            <div class="home-item" onclick="openGallery('3d')" style="cursor: pointer;">
+                <img src="images-3d/3d-serie001-001.jpg" style="cursor: pointer;">
+                <div class="home-title" style="cursor: pointer;">Volumes</div>
+            </div>
+
+            
             <div class="home-item" onclick="openGallery('3d')">
                 <img src="images-3d/3d-serie001-001.jpg" style="cursor: pointer;">
                 <div class="home-title" style="cursor: pointer;">Volumes</div>
@@ -405,6 +410,7 @@
         };
 
         // Ouvre une galerie dans la modale
+
 function openGallery(type) {
     const modal = document.getElementById("galleryModal");
     const galleryContent = document.getElementById("modalGalleryContent");
@@ -436,7 +442,7 @@ function openGallery(type) {
         series.images.forEach(image => {
             const img = document.createElement("img");
             img.src = image.src;
-            img.onclick = function() { openFullImage(image.src, image.legend); };
+            img.onclick = () => openFullImage(image.src, image.legend);
             seriesImagesDiv.appendChild(img);
         });
 
@@ -447,65 +453,27 @@ function openGallery(type) {
     modal.style.display = "block";
     modal.scrollTop = 0;
 }
+
+function openFullImage(src, legend) {
+    const modal = document.getElementById("fullImageModal");
+    const img = document.getElementById("fullImageContent");
+    const legendElement = document.getElementById("fullImageLegend");
+
+    img.src = src;
+    legendElement.textContent = legend;
+    modal.style.display = "flex";
+}
+
+
         
-        function openGallery(type) {
-    const modal = document.getElementById("galleryModal");
-    const galleryContent = document.getElementById("modalGalleryContent");
-    const galleryTitle = document.getElementById("galleryTitle");
+        
 
-    // Définit le titre en fonction du type de galerie
-    let title = "";
-    if (type === "toile") title = "Œuvres Support Toile";
-    else if (type === "papier") title = "Œuvres Support Papier";
-    else if (type === "3d") title = "Œuvres 3D";
-    galleryTitle.textContent = title;
-
-    // Vide le contenu précédent
-    galleryContent.innerHTML = "";
-
-    // Affiche les séries de la galerie
-    galleries[type].forEach(series => {
-        const seriesDiv = document.createElement("div");
-        seriesDiv.className = "series-container";
-
-        const seriesTitle = document.createElement("div");
-        seriesTitle.className = "series-title";
-        seriesTitle.textContent = series.series;
-        seriesDiv.appendChild(seriesTitle);
-
-        const seriesImagesDiv = document.createElement("div");
-        seriesImagesDiv.className = "series-images";
-
-        series.images.forEach(image => {
-            const img = document.createElement("img");
-            img.src = image.src;
-            img.onclick = function() { openFullImage(image.src, image.legend); };
-            seriesImagesDiv.appendChild(img);
-        });
-
-        seriesDiv.appendChild(seriesImagesDiv);
-        galleryContent.appendChild(seriesDiv);
-    });
-
-    modal.style.display = "block";
-    modal.scrollTop = 0;
-}
         // Ferme la modale de galerie
         function closeGallery() {
             document.getElementById("galleryModal").style.display = "none";
         }
 
-        // Ouvre une image en grand (avec légende)
-        function openFullImage(src, legend) {
-            const modal = document.getElementById("fullImageModal");
-            const img = document.getElementById("fullImageContent");
-            const legendElement = document.getElementById("fullImageLegend");
-
-            img.src = src;
-            legendElement.textContent = legend;
-            modal.style.display = "flex";
-        }
-
+        
         // Ferme l'image agrandie
         function closeFullImage() {
             document.getElementById("fullImageModal").style.display = "none";
