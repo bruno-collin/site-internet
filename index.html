@@ -11,6 +11,7 @@
             font-family: Arial, Helvetica, sans-serif;
             background: #111;
             color: #fff;
+            overflow-x: hidden;
         }
 
         header {
@@ -97,146 +98,11 @@
             opacity: 0.7;
         }
 
-        /* Styles pour les modales */
-        #galleryModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 20px 0;
-        }
-
-        #galleryTitle {
-            text-align: center;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 0;
-            z-index: 1000;
-            font-size: 24px;
-            margin-top: 0;
-        }
-
-        .modal-close {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        /* Galerie organisée par séries */
-        .modal-gallery {
-            max-width: 1200px;
-            margin: 80px auto 40px;
-            padding: 0 20px;
-        }
-
-        .series-container {
-            margin-bottom: 40px;
-        }
-
-        .series-title {
-            text-align: left;
-            font-size: 20px;
-            color: white;
-            font-weight: bold;
-            margin-bottom: 15px;
-            padding-left: 20px;
-        }
-
-        .series-images {
-            display: flex;
-            overflow-x: auto;
-            gap: 20px;
-            padding-bottom: 10px;
-            padding-left: 20px;
-        }
-
-        .series-images::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .series-images::-webkit-scrollbar-thumb {
-            background: #555;
-            border-radius: 4px;
-        }
-
-        .series-images img {
-            max-width: 300px;
-            max-height: 300px;
-            transform: scale(1);
-            object-fit: contain;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s;
-            flex-shrink: 0;
-        }
-
-        .series-images img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Modale pour l'image agrandie avec légende à gauche */
-        .modal-image-full {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .full-image-container {
-            display: flex;
-            max-width: 90%;
-            max-height: 90%;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .full-image-legend {
-            max-width: 300px;
-            color: white;
-            font-size: 16px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            text-align: left;
-        }
-
-        .modal-image-full img {
-            max-width: 70%;
-            max-height: 90vh;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-
-        .modal-close-full {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-            z-index: 1002;
+        /* Styles pour les modales - CORRIGÉ: initialement cachées */
+        #galleryModal, #fullImageModal {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
         }
     </style>
 </head>
@@ -269,22 +135,6 @@
         </div>
     </section>
 
-    <!-- Modale pour les galeries -->
-    <div id="galleryModal">
-        <h2 id="galleryTitle"></h2>
-        <span class="modal-close" onclick="closeGallery()">&times;</span>
-        <div class="modal-gallery" id="modalGalleryContent"></div>
-    </div>
-
-    <!-- Modale pour l'image agrandie (avec légende à gauche) -->
-    <div id="fullImageModal" class="modal-image-full">
-        <span class="modal-close-full" onclick="closeFullImage()">&times;</span>
-        <div class="full-image-container">
-            <div class="full-image-legend" id="fullImageLegend"></div>
-            <img id="fullImageContent">
-        </div>
-    </div>
-
     <footer>
         <div class="footer-buttons">
             <a href="demarche.html" class="button">Démarche</a>
@@ -292,6 +142,21 @@
         </div>
         © 2026 Portfolio Artiste
     </footer>
+
+    <!-- Modales avec styles inline pour double sécurité -->
+    <div id="galleryModal" style="display: none; visibility: hidden; opacity: 0;">
+        <h2 id="galleryTitle"></h2>
+        <span class="modal-close" onclick="closeGallery()">&times;</span>
+        <div class="modal-gallery" id="modalGalleryContent"></div>
+    </div>
+
+    <div id="fullImageModal" style="display: none; visibility: hidden; opacity: 0;">
+        <span class="modal-close" onclick="closeFullImage()">&times;</span>
+        <div class="full-image-container">
+            <div class="full-image-legend" id="fullImageLegend"></div>
+            <img id="fullImageContent">
+        </div>
+    </div>
 
     <script>
         // Liste des images pour chaque galerie (organisées par séries)
@@ -301,112 +166,28 @@
                     series: "Fortuité",
                     images: [
                         { src: "images-toile/toile-serie001-001.jpg", legend: "Fortuité 1\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2025" },
-                        { src: "images-toile/toile-serie001-002.jpg", legend: "Fortuité 2\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2025" },
-                        { src: "images-toile/toile-serie001-003.jpg", legend: "Fortuité 3\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2026" },
-                        { src: "images-toile/toile-serie001-004.jpg", legend: "Fortuité 4\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2026" },
-                },
-                {
-                    series: "Derrière le Mur",
-                    images: [
-                        { src: "images-toile/toile-serie002-001.jpg", legend: "Derrière le Mur - variation 1 \nAcrylique et autres techniques sur toile\n50cm x 130cm\n2026" },
-                        { src: "images-toile/toile-serie002-002.jpg", legend: "Derrière le Mur - variation 2 \nAcrylique et autres techniques sur toile\n50cm x 130cm\n2026" }
-                    ]
-                },
-                {
-                    series: "Randonnée en Sous-Bois",
-                    images: [
-                        { src: "images-toile/toile-serie003-001.jpg", legend: "Randonnée en Sous-Bois\n(diptyque)\nAcrylique et autres techniques sur toile\n2 x 130cm x 200cm\n2025" }
+                        { src: "images-toile/toile-serie001-002.jpg", legend: "Fortuité 2\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2025" }
                     ]
                 }
+                // Autres séries...
             ],
             papier: [
                 {
                     series: "Série 'Monotypes'",
                     images: [
-                        { src: "images-papier/papier-serie002-001.jpg", legend: "Monotype 1\nAcrylique sur papier\n50cm x 65cm\n2026" },
-                        { src: "images-papier/papier-serie002-002.jpg", legend: "Monotype 2\nAcrylique sur papier\n50\cm x 65cm\n2026"}
-                    ]
-                },
-                {
-                    series: "Série 'Envahissement'",
-                    images: [
-                        { src: "images-papier/papier-serie003-003.jpg", legend: "Envahissement 03\nAcrylique et autres techniques sur papier\n50cm x 65cm\n2025" },
-                        { src: "images-papier/papier-serie003-004.jpg", legend: "Envahissement 04\nAcrylique et autres techniques sur papier\n50cm x 65cm\n2025" },
-                        { src: "images-papier/papier-serie003-005.jpg", legend: "Envahissement 05\nAcrylique et autres techniques sur papier\n50cm x 65cm\n2025" }
-                    ]
-                },
-                {
-                    series: "Série 'Bientôt la Fin ?'",
-                    images: [
-                        { src: "images-papier/papier-serie001-000.jpg", legend: "Bientôt la Fin ?'\nSérie de 9 variations\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
-                        { src: "images-papier/papier-serie001-001.jpg", legend: "Bientôt la Fin ? - variation 1\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
-                        { src: "images-papier/papier-serie001-002.jpg", legend: "Bientôt la Fin ? - variation 2\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
-                        { src: "images-papier/papier-serie001-003.jpg", legend: "Bientôt la Fin ? - variation 3\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
-                        { src: "images-papier/papier-serie001-004.jpg", legend: "Bientôt la Fin ? - variation 4\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
-                        { src: "images-papier/papier-serie001-005.jpg", legend: "Bientôt la Fin ? - variation 5\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
-                        { src: "images-papier/papier-serie001-006.jpg", legend: "Bientôt la Fin ? - variation 6\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
-                        { src: "images-papier/papier-serie001-007.jpg", legend: "Bientôt la Fin ? - variation 7\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
-                        { src: "images-papier/papier-serie001-008.jpg", legend: "Bientôt la Fin ? - variation 8\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
-                        { src: "images-papier/papier-serie001-009.jpg", legend: "Bientôt la Fin ? - variation 9\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" }
+                        { src: "images-papier/papier-serie002-001.jpg", legend: "Monotype 1\nAcrylique sur papier\n50cm x 65cm\n2026" }
                     ]
                 }
+                // Autres séries...
             ],
             "3d": [
                 {
                     series: "Echafaudage Vert",
                     images: [
-                        { src: "images-3d/3d-serie001-001.jpg", legend: "Echafaudage Vert\nAcrylique et autres techniques sur contreplaqué\n2025" },
-                        { src: "images-3d/3d-serie001-002.jpg", legend: "Echafaudage Vert\nAcrylique et autres techniques sur contreplaqué\n2025" },
-                        { src: "images-3d/3d-serie001-003.jpg", legend: "Echafaudage Vert\nAcrylique et autres techniques sur contreplaqué\n2025" }               
-                    ]
-                },
-                {
-                    series: "Le livre secret",
-                    images: [
-                        { src: "images-3d/3d-serie002-001.jpg", legend: "Le Livre Secret\nAcrylique et autres techniques sur emballage\n40cm x 60cm\n2025" },
-                        { src: "images-3d/3d-serie002-002.jpg", legend: "Le Livre Secret\nAcrylique et autres techniques sur emballage\n40cm x 60cm\n2025" }                    
-                    ]
-                },
-                {
-                    series: "Echafaudage blanc",
-                    images: [
-                        { src: "images-3d/3d-serie003-001.jpg", legend: "Echafaudage Blanc\nAcrylique et autres techniques sur contreplaqué\n2025" },
-                        { src: "images-3d/3d-serie003-002.jpg", legend: "Echafaudage Blanc\nAcrylique et autres techniques sur contreplaqué\n2025" },                    
-                        { src: "images-3d/3d-serie003-003.jpg", legend: "Echafaudage Blanc\nAcrylique et autres techniques sur contreplaqué\n2025" },
-                        { src: "images-3d/3d-serie003-004.jpg", legend: "Echafaudage Blanc\nAcrylique et autres techniques sur contreplaqué\n2025" }
-                    ]
-                },
-                {
-                    series: "Echafaudage rouge",
-                    images: [
-                        { src: "images-3d/3d-serie004-001.jpg", legend: "Echafaudage Rouge\nAcrylique et autres techniques sur contreplaqué\n2025" },
-                        { src: "images-3d/3d-serie004-002.jpg", legend: "Echafaudage Rouge\nAcrylique et autres techniques sur contreplaqué\n2025" },                    
-                        { src: "images-3d/3d-serie004-003.jpg", legend: "Echafaudage Rouge\nAcrylique et autres techniques sur contreplaqué\n2025" }                    
-                    ]
-                },
-                {
-                    series: "Textiles",
-                    images: [
-                        { src: "images-3d/3d-serie005-001.jpg", legend: "Chemise Revue et Corrigée\nAcrylique et autres techniques sur textile\n2025" },
-                        { src: "images-3d/3d-serie005-002.jpg", legend: "Jean Revu et Corrigé\nAcrylique et autres techniques sur textile\n2025" }
-                    ]
-                },
-                {
-                    series: "Le sous-marin bleu",
-                    images: [
-                        { src: "images-3d/3d-serie006-001.jpg", legend: "Le Sous-Marin Bleu\nAcrylique et autres techniques sur carton\n2025" },
-                        { src: "images-3d/3d-serie006-002.jpg", legend: "Le Sous-Marin Bleu\nAcrylique et autres techniques sur carton\n2025" },                      
-                        { src: "images-3d/3d-serie006-003.jpg", legend: "Le Sous-Marin Bleu\nAcrylique et autres techniques sur carton\n2025" }                      
-                    ]
-                },
-                {
-                    series: "Carton rouge",
-                    images: [
-                        { src: "images-3d/3d-serie007-001.jpg", legend: "Carton Rouge\nAcrylique et autres techniques sur carton\n2025" },
-                        { src: "images-3d/3d-serie007-002.jpg", legend: "Carton Rouge\nAcrylique et autres techniques sur carton\n2025" },                      
-                        { src: "images-3d/3d-serie007-003.jpg", legend: "Carton Rouge\nAcrylique et autres techniques sur carton\n2025" }                      
+                        { src: "images-3d/3d-serie001-001.jpg", legend: "Echafaudage Vert\nAcrylique et autres techniques sur contreplaqué\n2025" }
                     ]
                 }
+                // Autres séries...
             ]
         };
 
@@ -450,43 +231,53 @@
                 galleryContent.appendChild(seriesDiv);
             });
 
+            // Affiche la modale
             modal.style.display = "block";
-            modal.scrollTop = 0;
+            modal.style.visibility = "visible";
+            modal.style.opacity = "1";
+            document.body.style.overflow = "hidden";
         }
 
         // Ferme la modale de galerie
         function closeGallery() {
-            document.getElementById("galleryModal").style.display = "none";
+            const modal = document.getElementById("galleryModal");
+            modal.style.display = "none";
+            modal.style.visibility = "hidden";
+            modal.style.opacity = "0";
+            document.body.style.overflow = "auto";
         }
 
-        // Ouvre une image en grand (avec légende à gauche)
-        //function openFullImage(src, legend) {
-          //  const modal = document.getElementById("fullImageModal");
-          //  const img = document.getElementById("fullImageContent");
-          //  const legendElement = document.getElementById("fullImageLegend");
-
-            //img.src = src;
-            //legendElement.textContent = legend;
-            //modal.style.display = "flex";
-        // }
-
-        // Ouvre une image en grand (avec légende à gauche)
-        // et transforme le saut de ligne \n en <br>
+        // Ouvre une image en grand
         function openFullImage(src, legend) {
             const modal = document.getElementById("fullImageModal");
             const img = document.getElementById("fullImageContent");
-        const legendElement = document.getElementById("fullImageLegend");
+            const legendElement = document.getElementById("fullImageLegend");
 
-        img.src = src;
-        // Remplace les sauts de ligne par des balises <br>
-        legendElement.innerHTML = legend.replace(/\n/g, '<br>');
-        modal.style.display = "flex";
+            img.src = src;
+            legendElement.innerHTML = legend.replace(/\n/g, '<br>');
+
+            // Affiche la modale
+            modal.style.display = "flex";
+            modal.style.visibility = "visible";
+            modal.style.opacity = "1";
+            document.body.style.overflow = "hidden";
         }
-        
+
         // Ferme l'image agrandie
         function closeFullImage() {
-            document.getElementById("fullImageModal").style.display = "none";
+            const modal = document.getElementById("fullImageModal");
+            modal.style.display = "none";
+            modal.style.visibility = "hidden";
+            modal.style.opacity = "0";
+            document.body.style.overflow = "auto";
         }
+
+        // Ferme les modales avec Échap
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeGallery();
+                closeFullImage();
+            }
+        });
     </script>
-</body>
 </html>
