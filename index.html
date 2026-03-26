@@ -97,7 +97,7 @@
             opacity: 0.7;
         }
 
-        /* Styles pour les modales */
+        /* Styles pour les modales - CORRIGÉ: initialement cachées avec display:none */
         #galleryModal {
             display: none;
             position: fixed;
@@ -188,8 +188,8 @@
         }
 
         /* Modale pour l'image agrandie avec légende à gauche */
-        .modal-image-full {
-            display: none;
+        #fullImageModal {
+            display: none !important; /* Forcé à none */
             position: fixed;
             top: 0;
             left: 0;
@@ -222,7 +222,7 @@
             text-align: left;
         }
 
-        .modal-image-full img {
+        #fullImageModal img {
             max-width: 70%;
             max-height: 90vh;
             border-radius: 8px;
@@ -251,39 +251,23 @@
         <div class="home-grid">
             <!-- Galerie Toile -->
             <div class="home-item" onclick="openGallery('toile')">
-                <img src="images-toile/toile-001.jpg">
+                <img src="images-toile/toile-serie001-001.jpg">
                 <div class="home-title">Peintures sur Toile</div>
             </div>
 
             <!-- Galerie Papier -->
             <div class="home-item" onclick="openGallery('papier')">
-                <img src="images-papier/papier-serie001-000.jpg">
-                <div class="home-title">Œuvres Sur Papier</div>
+                <img src="images-papier/papier-serie003-003.jpg">
+                <div class="home-title">Œuvres sur Papier</div>
             </div>
 
             <!-- Galerie 3D -->
             <div class="home-item" onclick="openGallery('3d')">
-                <img src="images-3d/3d-001.jpg">
+                <img src="images-3d/3d-serie006-001.jpg">
                 <div class="home-title">Volumes</div>
             </div>
         </div>
     </section>
-
-    <!-- Modale pour les galeries -->
-    <div id="galleryModal">
-        <h2 id="galleryTitle"></h2>
-        <span class="modal-close" onclick="closeGallery()">&times;</span>
-        <div class="modal-gallery" id="modalGalleryContent"></div>
-    </div>
-
-    <!-- Modale pour l'image agrandie (avec légende à gauche) -->
-    <div id="fullImageModal" class="modal-image-full">
-        <span class="modal-close-full" onclick="closeFullImage()">&times;</span>
-        <div class="full-image-container">
-            <div class="full-image-legend" id="fullImageLegend"></div>
-            <img id="fullImageContent">
-        </div>
-    </div>
 
     <footer>
         <div class="footer-buttons">
@@ -293,6 +277,21 @@
         © 2026 Portfolio Artiste
     </footer>
 
+    <!-- Modales avec style inline pour double sécurité -->
+    <div id="galleryModal" style="display: none;">
+        <h2 id="galleryTitle"></h2>
+        <span class="modal-close" onclick="closeGallery()">&times;</span>
+        <div class="modal-gallery" id="modalGalleryContent"></div>
+    </div>
+
+    <div id="fullImageModal" style="display: none !important;">
+        <span class="modal-close-full" onclick="closeFullImage()">&times;</span>
+        <div class="full-image-container">
+            <div class="full-image-legend" id="fullImageLegend"></div>
+            <img id="fullImageContent" onclick="event.stopPropagation()">
+        </div>
+    </div>
+
     <script>
         // Liste des images pour chaque galerie (organisées par séries)
         const galleries = {
@@ -300,18 +299,23 @@
                 {
                     series: "Fortuité",
                     images: [
-                        { src: "images-toile/toile-001.jpg", legend: "Fortuité 1 / Acrylique et autres techniques sur toile / 90cm x 130cm / 2026" },
-                        { src: "images-toile/toile-002.jpg", legend: "Fortuité 2 - Acrylique et pastel, 100x80 cm" },
-                        { src: "images-toile/toile-003.jpg", legend: "Fortuité 3 - Inspiration CoBrA, toile libre" },
-                        { src: "images-toile/toile-004.jpg", legend: "Fortuité 4 - Peinture à l'huile, 2022" }
+                        { src: "images-toile/toile-serie001-001.jpg", legend: "Fortuité 1\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2025" },
+                        { src: "images-toile/toile-serie001-002.jpg", legend: "Fortuité 2\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2025" },
+                        { src: "images-toile/toile-serie001-003.jpg", legend: "Fortuité 3\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2026" },
+                        { src: "images-toile/toile-serie001-004.jpg", legend: "Fortuité 4\nAcrylique et autres techniques sur toile\n90cm x 130cm\n2026" },
                     ]
                 },
                 {
-                    series: "Abstraction",
+                    series: "Derrière le Mur",
                     images: [
-                        { src: "images-toile/toile-005.jpg", legend: "Abstraction 1 - Abstraction géométrique" },
-                        { src: "images-toile/toile-006.jpg", legend: "Abstraction 2 - Collage et peinture" },
-                        { src: "images-toile/toile-007.jpg", legend: "Abstraction 3 - Série 'Horizons'" }
+                        { src: "images-toile/toile-serie002-001.jpg", legend: "Derrière le Mur - variation 1 \nAcrylique et autres techniques sur toile\n50cm x 130cm\n2026" },
+                        { src: "images-toile/toile-serie002-002.jpg", legend: "Derrière le Mur - variation 2 \nAcrylique et autres techniques sur toile\n50cm x 130cm\n2026" }
+                    ]
+                },
+                {
+                    series: "Randonnée en Sous-Bois",
+                    images: [
+                        { src: "images-toile/toile-serie003-001.jpg", legend: "Randonnée en Sous-Bois\n(diptyque)\nAcrylique et autres techniques sur toile\n2 x 130cm x 200cm\n2025" }
                     ]
                 }
             ],
@@ -319,47 +323,88 @@
                 {
                     series: "Série 'Monotypes'",
                     images: [
-                        { src: "images-papier/papier-serie002-001.jpg", legend: "Monotype 1 - Acrylique sur papier, 50cm x 65cm" },
-                        { src: "images-papier/papier-serie002-001.jpg", legend: "Monotype 2 - Acrylique sur papier, 50cm x 65cm" }
+                        { src: "images-papier/papier-serie002-001.jpg", legend: "Monotype 1\nAcrylique sur papier\n50cm x 65cm\n2026" },
+                        { src: "images-papier/papier-serie002-002.jpg", legend: "Monotype 2\nAcrylique sur papier\n50\cm x 65cm\n2026"}
                     ]
                 },
                 {
                     series: "Série 'Envahissement'",
                     images: [
-                        { src: "images-papier/papier-serie003-003.jpg", legend: "Envahissement 03 - Acrylique, découpage et collage sur papier, 50cm x 65cm" },
-                        { src: "images-papier/papier-serie003-004.jpg", legend: "Envahissement 04 - Acrylique, découpage et collage sur papier, 50cm x 65cm" },
-                        { src: "images-papier/papier-serie003-005.jpg", legend: "Envahissement 05 - Acrylique, découpage et collage sur papier, 50cm x 65cm" }
+                        { src: "images-papier/papier-serie003-003.jpg", legend: "Envahissement 03\nAcrylique et autres techniques sur papier\n50cm x 65cm\n2025" },
+                        { src: "images-papier/papier-serie003-004.jpg", legend: "Envahissement 04\nAcrylique et autres techniques sur papier\n50cm x 65cm\n2025" },
+                        { src: "images-papier/papier-serie003-005.jpg", legend: "Envahissement 05\nAcrylique et autres techniques sur papier\n50cm x 65cm\n2025" }
                     ]
                 },
                 {
-                    series: "Série 'Bientôt Fini'",
+                    series: "Série 'Bientôt la Fin ?'",
                     images: [
-                        { src: "images-papier/papier-serie001-000.jpg", legend: "Série 'Bientôt Fini' - Dessin 1" },
-                        { src: "images-papier/papier-serie001-001.jpg", legend: "Dessin 1 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-002.jpg", legend: "Dessin 2 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-003.jpg", legend: "Dessin 3 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-004.jpg", legend: "Dessin 4 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-005.jpg", legend: "Dessin 5 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-006.jpg", legend: "Dessin 6 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-007.jpg", legend: "Dessin 7 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-008.jpg", legend: "Dessin 8 - Fusain et pastel" },
-                        { src: "images-papier/papier-serie001-009.jpg", legend: "Dessin 9 - Fusain et pastel" }
+                        { src: "images-papier/papier-serie001-000.jpg", legend: "Bientôt la Fin ?'\nSérie de 9 variations\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
+                        { src: "images-papier/papier-serie001-001.jpg", legend: "Bientôt la Fin ? - variation 1\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
+                        { src: "images-papier/papier-serie001-002.jpg", legend: "Bientôt la Fin ? - variation 2\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
+                        { src: "images-papier/papier-serie001-003.jpg", legend: "Bientôt la Fin ? - variation 3\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
+                        { src: "images-papier/papier-serie001-004.jpg", legend: "Bientôt la Fin ? - variation 4\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
+                        { src: "images-papier/papier-serie001-005.jpg", legend: "Bientôt la Fin ? - variation 5\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
+                        { src: "images-papier/papier-serie001-006.jpg", legend: "Bientôt la Fin ? - variation 6\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
+                        { src: "images-papier/papier-serie001-007.jpg", legend: "Bientôt la Fin ? - variation 7\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
+                        { src: "images-papier/papier-serie001-008.jpg", legend: "Bientôt la Fin ? - variation 8\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" },
+                        { src: "images-papier/papier-serie001-009.jpg", legend: "Bientôt la Fin ? - variation 9\nAcrylique et autres techniques sur papier\n65cm x 50cm\n2025" }
                     ]
                 }
             ],
             "3d": [
                 {
-                    series: "Sculptures",
+                    series: "Echafaudage Vert",
                     images: [
-                        { src: "images-3d/3d-001.jpg", legend: "Sculpture 1 - Carton et peinture, 2024" },
-                        { src: "images-3d/3d-002.jpg", legend: "Sculpture 2 - Installation, matériaux recyclés" }
+                        { src: "images-3d/3d-serie001-001.jpg", legend: "Echafaudage Vert\nAcrylique et autres techniques sur contreplaqué\n2025" },
+                        { src: "images-3d/3d-serie001-002.jpg", legend: "Echafaudage Vert\nAcrylique et autres techniques sur contreplaqué\n2025" },
+                        { src: "images-3d/3d-serie001-003.jpg", legend: "Echafaudage Vert\nAcrylique et autres techniques sur contreplaqué\n2025" }
                     ]
                 },
                 {
-                    series: "Assemblages",
+                    series: "Le livre secret",
                     images: [
-                        { src: "images-3d/3d-003.jpg", legend: "Assemblage 1 - Bois et métal" },
-                        { src: "images-3d/3d-004.jpg", legend: "Assemblage 2 - Volume, papier mâché" }
+                        { src: "images-3d/3d-serie002-001.jpg", legend: "Le Livre Secret\nAcrylique et autres techniques sur emballage\n40cm x 60cm\n2025" },
+                        { src: "images-3d/3d-serie002-002.jpg", legend: "Le Livre Secret\nAcrylique et autres techniques sur emballage\n40cm x 60cm\n2025" }
+                    ]
+                },
+                {
+                    series: "Echafaudage blanc",
+                    images: [
+                        { src: "images-3d/3d-serie003-001.jpg", legend: "Echafaudage Blanc\nAcrylique et autres techniques sur contreplaqué\n2025" },
+                        { src: "images-3d/3d-serie003-002.jpg", legend: "Echafaudage Blanc\nAcrylique et autres techniques sur contreplaqué\n2025" },
+                        { src: "images-3d/3d-serie003-003.jpg", legend: "Echafaudage Blanc\nAcrylique et autres techniques sur contreplaqué\n2025" },
+                        { src: "images-3d/3d-serie003-004.jpg", legend: "Echafaudage Blanc\nAcrylique et autres techniques sur contreplaqué\n2025" }
+                    ]
+                },
+                {
+                    series: "Echafaudage rouge",
+                    images: [
+                        { src: "images-3d/3d-serie004-001.jpg", legend: "Echafaudage Rouge\nAcrylique et autres techniques sur contreplaqué\n2025" },
+                        { src: "images-3d/3d-serie004-002.jpg", legend: "Echafaudage Rouge\nAcrylique et autres techniques sur contreplaqué\n2025" },
+                        { src: "images-3d/3d-serie004-003.jpg", legend: "Echafaudage Rouge\nAcrylique et autres techniques sur contreplaqué\n2025" }
+                    ]
+                },
+                {
+                    series: "Textiles",
+                    images: [
+                        { src: "images-3d/3d-serie005-001.jpg", legend: "Chemise Revue et Corrigée\nAcrylique et autres techniques sur textile\n2025" },
+                        { src: "images-3d/3d-serie005-002.jpg", legend: "Jean Revu et Corrigé\nAcrylique et autres techniques sur textile\n2025" }
+                    ]
+                },
+                {
+                    series: "Le sous-marin bleu",
+                    images: [
+                        { src: "images-3d/3d-serie006-001.jpg", legend: "Le Sous-Marin Bleu\nAcrylique et autres techniques sur carton\n2025" },
+                        { src: "images-3d/3d-serie006-002.jpg", legend: "Le Sous-Marin Bleu\nAcrylique et autres techniques sur carton\n2025" },
+                        { src: "images-3d/3d-serie006-003.jpg", legend: "Le Sous-Marin Bleu\nAcrylique et autres techniques sur carton\n2025" }
+                    ]
+                },
+                {
+                    series: "Carton rouge",
+                    images: [
+                        { src: "images-3d/3d-serie007-001.jpg", legend: "Carton Rouge\nAcrylique et autres techniques sur carton\n2025" },
+                        { src: "images-3d/3d-serie007-002.jpg", legend: "Carton Rouge\nAcrylique et autres techniques sur carton\n2025" },
+                        { src: "images-3d/3d-serie007-003.jpg", legend: "Carton Rouge\nAcrylique et autres techniques sur carton\n2025" }
                     ]
                 }
             ]
@@ -374,7 +419,7 @@
             // Définit le titre en fonction du type de galerie
             let title = "";
             if (type === "toile") title = "Peintures sur Toile";
-            else if (type === "papier") title = "Œuvres Sur Papier";
+            else if (type === "papier") title = "Œuvres sur Papier";
             else if (type === "3d") title = "Volumes";
             galleryTitle.textContent = title;
 
@@ -405,13 +450,15 @@
                 galleryContent.appendChild(seriesDiv);
             });
 
+            // Affiche la modale
             modal.style.display = "block";
-            modal.scrollTop = 0;
+            document.body.style.overflow = "hidden";
         }
 
         // Ferme la modale de galerie
         function closeGallery() {
             document.getElementById("galleryModal").style.display = "none";
+            document.body.style.overflow = "auto";
         }
 
         // Ouvre une image en grand (avec légende à gauche)
@@ -421,14 +468,31 @@
             const legendElement = document.getElementById("fullImageLegend");
 
             img.src = src;
-            legendElement.textContent = legend;
+            legendElement.innerHTML = legend.replace(/\n/g, '<br>');
             modal.style.display = "flex";
+            document.body.style.overflow = "hidden";
         }
 
         // Ferme l'image agrandie
         function closeFullImage() {
             document.getElementById("fullImageModal").style.display = "none";
+            document.body.style.overflow = "auto";
         }
+
+        // Ferme les modales avec Échap
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeGallery();
+                closeFullImage();
+            }
+        });
+
+        // Ferme si clic en dehors de l'image
+        document.getElementById("fullImageModal").addEventListener("click", (e) => {
+            if (e.target === e.currentTarget) {
+                closeFullImage();
+            }
+        });
     </script>
 </body>
 </html>
