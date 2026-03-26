@@ -187,18 +187,34 @@
             transform: scale(1.05);
         }
 
-        .modal-image-full {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1001;
-            justify-content: center;
-            align-items: center;
-        }
+
+.modal-image-full {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#fullImageLegend {
+    color: white;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 300px;
+    margin-right: 20px;
+    text-align: left;
+    flex-shrink: 0;
+}
 
         .modal-image-full img {
             max-width: 90%;
@@ -207,20 +223,6 @@
             object-fit: contain;
         }
 
-        /* Style pour la légende de l'image agrandie */
-        #fullImageLegend {
-            position: absolute;
-            bottom: 20px;
-            color: white;
-            text-align: center;
-            font-size: 16px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 5px;
-            max-width: 80%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
     </style>
 </head>
 <body>
@@ -252,20 +254,24 @@
         </div>
     </section>
 
+
+
+    
     <!-- Modale pour les galeries -->
-    <div id="galleryModal">
+<div id="galleryModal" style="display: none;">
         <h2 id="galleryTitle"></h2>
         <span class="modal-close" onclick="closeGallery()">&times;</span>
         <div class="modal-gallery" id="modalGalleryContent"></div>
     </div>
 
-    <!-- Modale pour l'image agrandie (avec légende) -->
-    <div id="fullImageModal" class="modal-image-full" onclick="closeFullImage()">
-        <span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">&times;</span>
-        <img id="fullImageContent" onclick="event.stopPropagation()">
+<div id="fullImageModal" class="modal-image-full" style="display: none;" onclick="closeFullImage()">
+    <span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">&times;</span>
+    <div style="display: flex; align-items: center; max-width: 90vw; max-height: 90vh;">
         <div id="fullImageLegend"></div>
+        <img id="fullImageContent" onclick="event.stopPropagation()" style="max-width: 70%; max-height: 70vh; border-radius: 10px; object-fit: contain;">
     </div>
-
+</div>
+    
     <footer>
         <div class="footer-buttons">
             <a href="demarche.html" class="button">Démarche</a>
