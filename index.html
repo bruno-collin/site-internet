@@ -252,19 +252,19 @@
             <!-- Galerie Toile -->
             <div class="home-item" onclick="openGallery('toile')">
                 <img src="images-toile/toile-001.jpg">
-                <div class="home-title">Œuvres Support Toile</div>
+                <div class="home-title">Peintures sur Toile</div>
             </div>
 
             <!-- Galerie Papier -->
             <div class="home-item" onclick="openGallery('papier')">
                 <img src="images-papier/papier-serie001-000.jpg">
-                <div class="home-title">Œuvres Support Papier</div>
+                <div class="home-title">Œuvres Sur Papier</div>
             </div>
 
             <!-- Galerie 3D -->
             <div class="home-item" onclick="openGallery('3d')">
                 <img src="images-3d/3d-001.jpg">
-                <div class="home-title">Œuvres 3D</div>
+                <div class="home-title">Volumes</div>
             </div>
         </div>
     </section>
@@ -373,9 +373,9 @@
 
             // Définit le titre en fonction du type de galerie
             let title = "";
-            if (type === "toile") title = "Œuvres Support Toile";
-            else if (type === "papier") title = "Œuvres Support Papier";
-            else if (type === "3d") title = "Œuvres 3D";
+            if (type === "toile") title = "Peintures sur Toile";
+            else if (type === "papier") title = "Œuvres Sur Papier";
+            else if (type === "3d") title = "Volumes";
             galleryTitle.textContent = title;
 
             // Vide le contenu précédent
