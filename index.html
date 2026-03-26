@@ -132,7 +132,7 @@
             z-index: 1001;
         }
 
-        /* Galerie organisée par séries */
+        /* Galerie organisée par séries avec défilement horizontal */
         .modal-gallery {
             max-width: 1200px;
             margin: 80px auto 40px;
@@ -141,15 +141,19 @@
 
         .series-container {
             margin-bottom: 40px;
+            display: flex;
+            align-items: flex-start;
         }
 
         .series-title {
+            width: 200px;
             text-align: left;
             font-size: 20px;
+            margin-right: 20px;
             color: white;
             font-weight: bold;
-            margin-bottom: 15px;
-            padding-left: 20px;
+            flex-shrink: 0;
+            padding-top: 10px;
         }
 
         .series-images {
@@ -157,7 +161,7 @@
             overflow-x: auto;
             gap: 20px;
             padding-bottom: 10px;
-            padding-left: 20px;
+            flex: 1;
         }
 
         .series-images::-webkit-scrollbar {
