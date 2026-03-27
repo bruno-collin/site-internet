@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
 
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Artiste - Bruno Collin</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portfolio Artiste - Bruno Collin</title>
+<style>
         /* Styles globaux */
         body {
             margin: 0;
@@ -225,64 +225,117 @@
         }
 
     </style>
-</head>
+<style>
+/* Styles pour la modal d'image */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    overflow: auto;
+}
+
+.modal-content {
+    max-width: 95%;
+    max-height: 95%;
+    margin: auto;
+    display: block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#modal-caption {
+    text-align: center;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+}
+</style><style>
+/* Alignement des légendes en bas des images */
+.home-item {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.home-item img {
+    display: block;
+    width: 100%;
+}
+
+.home-item figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 0;
+    text-align: center;
+    margin: 0;
+}
+</style></head>
 <body>
-    <header>
-        <h1>Bruno Collin Plasticien</h1>
-    </header>
-
-    <section>
-        <h2>Galeries</h2>
-        <p>Cliquez sur une image ou sur son titre pour ouvrir la galerie correspondante.</p>
-        <div class="home-grid">
-            <!-- Galerie Toile -->
-            <div class="home-item" onclick="openGallery('toile')">
-                <img src="images-toile/toile-serie001-001.jpg">
-                <div class="home-title">Peintures sur Toile</div>
-            </div>
-
-            <!-- Galerie Papier -->
-            <div class="home-item" onclick="openGallery('papier')">
-                <img src="images-papier/papier-serie003-003.jpg">
-                <div class="home-title">Œuvres sur Papier</div>
-            </div>
-
-            <!-- Galerie 3D -->
-            <div class="home-item" onclick="openGallery('3d')">
-                <img src="images-3d/3d-serie004-002.jpg">
-                <div class="home-title">Volumes</div>
-            </div>
-        </div>
-    </section>
-
-
-
-    
-    <!-- Modale pour les galeries -->
-    
-<div id="galleryModal" style="display: none;">
-        <h2 id="galleryTitle"></h2>
-        <span class="modal-close" onclick="closeGallery()">&times;</span>
-        <div class="modal-gallery" id="modalGalleryContent"></div>
-    </div>
-
-<div id="fullImageModal" class="modal-image-full" style="display: none;" onclick="closeFullImage()">
-    <span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">&times;</span>
-    <div style="display: flex; align-items: center; max-width: 90vw; max-height: 90vh;">
-        <div id="fullImageLegend"></div>
-        <img id="fullImageContent" onclick="event.stopPropagation()" style="max-width: 70%; max-height: 70vh; border-radius: 10px; object-fit: contain;">
-    </div>
+<header>
+<h1>Bruno Collin Plasticien</h1>
+</header>
+<section>
+<h2>Galeries</h2>
+<p>Cliquez sur une image ou sur son titre pour ouvrir la galerie correspondante.</p>
+<div class="home-grid">
+<!-- Galerie Toile -->
+<div class="home-item" onclick="openGallery('toile')">
+<img src="images-toile/toile-serie001-001.jpg"/>
+<div class="home-title">Peintures sur Toile</div>
 </div>
-        
-    <footer>
-        <div class="footer-buttons">
-            <a href="demarche.html" class="button">Démarche</a>
-            <a href="contact.html" class="button">Contact</a>
-        </div>
+<!-- Galerie Papier -->
+<div class="home-item" onclick="openGallery('papier')">
+<img src="images-papier/papier-serie003-003.jpg"/>
+<div class="home-title">Œuvres sur Papier</div>
+</div>
+<!-- Galerie 3D -->
+<div class="home-item" onclick="openGallery('3d')">
+<img src="images-3d/3d-serie004-002.jpg"/>
+<div class="home-title">Volumes</div>
+</div>
+</div>
+</section>
+<!-- Modale pour les galeries -->
+<div id="galleryModal" style="display: none;">
+<h2 id="galleryTitle"></h2>
+<span class="modal-close" onclick="closeGallery()">×</span>
+<div class="modal-gallery" id="modalGalleryContent"></div>
+</div>
+<div class="modal-image-full" id="fullImageModal" onclick="closeFullImage()" style="display: none;">
+<span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">×</span>
+<div style="display: flex; align-items: center; max-width: 90vw; max-height: 90vh;">
+<div id="fullImageLegend"></div>
+<img id="fullImageContent" onclick="event.stopPropagation()" style="max-width: 70%; max-height: 70vh; border-radius: 10px; object-fit: contain;"/>
+</div>
+</div>
+<footer>
+<div class="footer-buttons">
+<a class="button" href="demarche.html">Démarche</a>
+<a class="button" href="contact.html">Contact</a>
+</div>
         © 2026 Portfolio Artiste
     </footer>
-
-    <script>
+<script>
         // Liste des images pour chaque galerie (organisées par séries)
         const galleries = {
             toile: [
@@ -499,5 +552,39 @@
             document.getElementById("fullImageModal").style.display = "none";
         }
     </script>
+<!-- Modal pour l'image agrandie -->
+<div class="modal" id="image-modal">
+<span class="close-modal">×</span>
+<img class="modal-content" id="modal-image"/>
+<div id="modal-caption"></div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('.home-item img');
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-image');
+    const captionText = document.getElementById('modal-caption');
+    const closeBtn = document.querySelector('.close-modal');
+
+    images.forEach(img => {
+        img.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.style.display = 'block';
+            modalImg.src = this.src;
+            captionText.innerHTML = this.nextElementSibling ? this.nextElementSibling.textContent : '';
+        });
+    });
+
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>
 </body>
 </html>
