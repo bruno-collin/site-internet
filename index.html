@@ -321,6 +321,7 @@
 <header>
 <h1>Bruno Collin Plasticien</h1>
 </header>
+
 <section>
 <!-- <h2>Galeries</h2> -->
 <!-- <p>Cliquez sur une image ou sur son titre pour ouvrir la galerie correspondante.</p> -->
@@ -330,11 +331,13 @@
 <img src="images-toile/toile-serie001-001.jpg"/>
 <div class="home-title">Peintures sur Toile</div>
 </div>
+
 <!-- Galerie Papier -->
 <div class="home-item" onclick="openGallery('papier')">
 <img src="images-papier/papier-serie003-003.jpg"/>
 <div class="home-title">Œuvres sur Papier</div>
 </div>
+
 <!-- Galerie 3D -->
 <div class="home-item" onclick="openGallery('3d')">
 <img src="images-3d/3d-serie004-002.jpg"/>
@@ -342,37 +345,40 @@
 </div>
 </div>
 </section>
+
 <!-- Modale pour les galeries -->
+
 <div id="galleryModal" style="display: none;">
-<h2 id="galleryTitle"></h2>
-<span class="modal-close" onclick="closeGallery()">×</span>
-<div class="modal-gallery" id="modalGalleryContent"></div>
+        <h2 id="galleryTitle"></h2>
+        <span class="modal-close" onclick="closeGallery()">×</span>
+        <div class="modal-gallery" id="modalGalleryContent"></div>
 </div>
+
 <div class="modal-image-full" id="fullImageModal" onclick="closeFullImage()" style="display: none;">
-<span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">×</span>
+        <span class="modal-close" onclick="event.stopPropagation(); closeFullImage()">×</span>
+        <div id="fullImageContainer">      
+                <div id="fullImageLegend"></div>
+                <img id="fullImageContent" onclick="event.stopPropagation()" style="max-width: 70%; max-height: 70vh; border-radius: 10px; object-fit: contain;"/>
+        </div>
+</div>
 
         
-<div id="fullImageContainer">      
-<div id="fullImageLegend"></div>
-<img id="fullImageContent" onclick="event.stopPropagation()" style="max-width: 70%; max-height: 70vh; border-radius: 10px; object-fit: contain;"/>
-</div>
-</div>
 <footer>
 <div class="footer-buttons">
 <a class="button" href="demarche.html">Démarche</a>
 <a class="button" href="contact.html">Contact</a>
 </div>
-        © 2026 Portfolio Artiste
-    </footer>
-<script>
+© 2026 Portfolio Bruno Collin Plasticien
+</footer>
 
-        let currentImages = [];
+<script>
+let currentImages = [];
 let currentIndex = 0;
 
         
-        // Liste des images pour chaque galerie (organisées par séries)
+// Liste des images pour chaque galerie (organisées par séries)
+function showImage(index) {
         
-        function showImage(index) {
     if (index < 0) index = currentImages.length - 1;
     if (index >= currentImages.length) index = 0;
 
