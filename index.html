@@ -225,6 +225,29 @@
     max-width: 90vw;
     max-height: 90vh;
 }
+
+/* Animation ouverture */
+#fullImageModal {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#fullImageModal.active {
+    opacity: 1;
+}
+
+        
+
+#fullImageContent {
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+transition: opacity 0.3s ease;
+        
+}
+
+#fullImageModal.active #fullImageContent {
+    transform: scale(1);
+}
         
         .modal-image-full img {
             max-width: 90%;
@@ -347,7 +370,40 @@ white-space: pre-line;
         © 2026 Portfolio Artiste
     </footer>
 <script>
+
+        let currentImages = [];
+let currentIndex = 0;
+
+        
         // Liste des images pour chaque galerie (organisées par séries)
+        
+        function showImage(index) {
+    if (index < 0) index = currentImages.length - 1;
+    if (index >= currentImages.length) index = 0;
+
+    currentIndex = index;
+
+    const img = document.getElementById("fullImageContent");
+    const legend = document.getElementById("fullImageLegend");
+
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+        img.src = currentImages[currentIndex].src;
+        legend.textContent = currentImages[currentIndex].legend;
+        img.style.opacity = 1;
+    }, 150);
+}
+
+function nextImage() {
+    showImage(currentIndex + 1);
+}
+
+function prevImage() {
+    showImage(currentIndex - 1);
+}
+        
+        
         const galleries = {
             toile: [
                 {
@@ -498,6 +554,41 @@ white-space: pre-line;
             ]
         };
 
+document.addEventListener("keydown", (e) => {
+    const modal = document.getElementById("fullImageModal");
+    if (modal.style.display !== "flex") return;
+
+    if (e.key === "ArrowRight") nextImage();
+    if (e.key === "ArrowLeft") prevImage();
+    if (e.key === "Escape") closeFullImage();
+});
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+const modal = document.getElementById("fullImageModal");
+
+modal.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+modal.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const diff = touchEndX - touchStartX;
+
+    if (Math.abs(diff) < 50) return;
+
+    if (diff < 0) {
+        nextImage(); // swipe gauche → image suivante
+    } else {
+        prevImage(); // swipe droite → image précédente
+    }
+}        
+        
         // Ouvre une galerie dans la modale
         function openGallery(type) {
             const modal = document.getElementById("galleryModal");
@@ -527,12 +618,21 @@ white-space: pre-line;
                 const seriesImagesDiv = document.createElement("div");
                 seriesImagesDiv.className = "series-images";
 
-                series.images.forEach(image => {
-                    const img = document.createElement("img");
-                    img.src = image.src;
-                    img.onclick = () => openFullImage(image.src, image.legend);
-                    seriesImagesDiv.appendChild(img);
-                });
+                series.images.forEach((image, index) => {
+    const img = document.createElement("img");
+    img.src = image.src;
+
+    img.onclick = () => {
+        currentImages = series.images;
+        currentIndex = index;
+        openFullImage(image.src, image.legend);
+    };
+
+    seriesImagesDiv.appendChild(img);
+});
+                    
+                    
+             
 
                 seriesDiv.appendChild(seriesImagesDiv);
                 galleryContent.appendChild(seriesDiv);
@@ -547,21 +647,33 @@ white-space: pre-line;
             document.getElementById("galleryModal").style.display = "none";
         }
 
-        // Ouvre une image en grand (avec légende)
-        function openFullImage(src, legend) {
-            const modal = document.getElementById("fullImageModal");
-            const img = document.getElementById("fullImageContent");
-            const legendElement = document.getElementById("fullImageLegend");
+function openFullImage(src, legend) {
+    const modal = document.getElementById("fullImageModal");
+    const img = document.getElementById("fullImageContent");
+    const legendElement = document.getElementById("fullImageLegend");
 
-            img.src = src;
-            legendElement.textContent = legend;
-            modal.style.display = "flex";
-        }
+    img.src = src;
+    legendElement.textContent = legend;
 
+    modal.style.display = "flex";
+
+    setTimeout(() => {
+        modal.classList.add("active");
+    }, 10);
+}
+        
+ 
         // Ferme l'image agrandie
-        function closeFullImage() {
-            document.getElementById("fullImageModal").style.display = "none";
-        }
+function closeFullImage() {
+    const modal = document.getElementById("fullImageModal");
+
+    modal.classList.remove("active");
+
+    setTimeout(() => {
+        modal.style.display = "none";
+    }, 300);
+}
+        
     </script>
 </body>
 </html>
