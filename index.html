@@ -99,18 +99,6 @@
             opacity: 0.7;
         }
 
-       /* OVERLAY QUI MASQUE TOUT LE CONTENU */
-        .page-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 999;
-        }
-
 
         /* GALERIE MODALE - PREND TOUT L'ÉCRAN */
         #galleryModal {
@@ -377,10 +365,6 @@
 </div>
 </div>
 </section>
-
-<!-- OVERLAY QUI MASQUE TOUT LE CONTENU -->
-<div class="page-overlay" id="pageOverlay"></div>
-
         
 <!-- Modale pour les galeries -->
 
@@ -653,11 +637,6 @@ function handleSwipe() {
         
         // Ouvre une galerie dans la modale
         function openGallery(type) {
-
-             // Affiche l'overlay pour masquer l'écran d'accueil
-            document.getElementById('pageOverlay').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Désactive le scroll de la page    
-                
             const modal = document.getElementById("galleryModal");
             const galleryContent = document.getElementById("modalGalleryContent");
             const galleryTitle = document.getElementById("galleryTitle");
@@ -712,10 +691,9 @@ function handleSwipe() {
         // Ferme la modale de galerie
         function closeGallery() { 
             document.getElementById("galleryModal").style.display = "none";
-            document.getElementById('pageOverlay').style.display = 'none'; // Masque l'overlay
-            document.body.style.overflow = 'auto'; // Réactive le scroll
+            document.body.style.overflow = 'auto';
         }
-
+        
 <!--
         function closeGallery() {
             document.getElementById("galleryModal").style.display = "none";
@@ -748,7 +726,13 @@ function closeFullImage() {
         modal.style.display = "none";
     }, 300);
 }
-        
-    </script>
+
+// 👇 AJOUT ICI
+document.getElementById("galleryModal").addEventListener("click", function(e) {
+    if (e.target === this) closeGallery();
+}
+);
+
+</script>
 </body>
 </html>
