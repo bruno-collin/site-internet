@@ -644,10 +644,14 @@ function handleSwipe() {
         
         // Ouvre une galerie dans la modale
         function openGallery(type) {
-        document.getElementById("homeSection").classList.add("hidden");
-                
-           document.getElementById("homeSection").style.display = "none";     
-            const modal = document.getElementById("galleryModal");
+    document.body.style.overflow = 'hidden';
+
+    document.getElementById("homeSection").classList.add("hidden");
+<!--           document.getElementById("homeSection").style.display = "none"; -->    
+
+        document.getElementById("galleryModal").style.display = "block";
+
+<!--        const modal = document.getElementById("galleryModal"); -->
             const galleryContent = document.getElementById("modalGalleryContent");
             const galleryTitle = document.getElementById("galleryTitle");
 
@@ -699,12 +703,17 @@ function handleSwipe() {
         }
 
         // Ferme la modale de galerie
-     function closeGallery() { 
-document.getElementById("homeSection").classList.remove("hidden");    
-document.getElementById("galleryModal").style.display = "none";
+
+        function closeGallery() { 
+
+    document.getElementById("galleryModal").style.display = "none";
+
     document.body.style.overflow = 'auto';
-    document.getElementById("homeSection").style.display = "block";
+
+    document.getElementById("homeSection").classList.remove("hidden");
 }
+
+
         
 <!--
         function closeGallery() {
