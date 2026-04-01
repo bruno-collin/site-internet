@@ -98,6 +98,34 @@
             opacity: 0.7;
         }
 
+       /* OVERLAY QUI MASQUE TOUT LE CONTENU */
+        .page-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 999;
+        }
+
+
+        /* GALERIE MODALE - PREND TOUT L'ÉCRAN */
+        #galleryModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            overflow-y: auto; /* Permet de scroller uniquement dans la galerie */
+        }
+
+<!--
+        
         /* Styles pour les modales */
         #galleryModal {
             display: none;
@@ -111,7 +139,9 @@
             overflow-y: auto;
             padding: 20px 0;
         }
+-->
 
+        
         #galleryTitle {
             text-align: center;
             color: white;
@@ -347,6 +377,10 @@
 </div>
 </section>
 
+<!-- OVERLAY QUI MASQUE TOUT LE CONTENU -->
+<div class="page-overlay" id="pageOverlay"></div>
+
+        
 <!-- Modale pour les galeries -->
 
 <div id="galleryModal" style="display: none;">
@@ -618,6 +652,11 @@ function handleSwipe() {
         
         // Ouvre une galerie dans la modale
         function openGallery(type) {
+
+             // Affiche l'overlay pour masquer l'écran d'accueil
+            document.getElementById('pageOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Désactive le scroll de la page    
+                
             const modal = document.getElementById("galleryModal");
             const galleryContent = document.getElementById("modalGalleryContent");
             const galleryTitle = document.getElementById("galleryTitle");
@@ -670,10 +709,18 @@ function handleSwipe() {
         }
 
         // Ferme la modale de galerie
+        function closeGallery() { 
+            document.getElementById("galleryModal").style.display = "none";
+            document.getElementById('pageOverlay').style.display = 'none'; // Masque l'overlay
+            document.body.style.overflow = 'auto'; // Réactive le scroll
+        }
+
+<!--
         function closeGallery() {
             document.getElementById("galleryModal").style.display = "none";
         }
-
+-->
+        
 function openFullImage(src, legend) {
     const modal = document.getElementById("fullImageModal");
     const img = document.getElementById("fullImageContent");
