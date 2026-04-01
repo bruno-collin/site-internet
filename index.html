@@ -32,6 +32,12 @@
 <!--        padding: 30px; la ligne au-dessus est ok -->
         }
 
+        #homeSection.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
         .home-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -638,6 +644,8 @@ function handleSwipe() {
         
         // Ouvre une galerie dans la modale
         function openGallery(type) {
+        document.getElementById("homeSection").classList.add("hidden");
+                
            document.getElementById("homeSection").style.display = "none";     
             const modal = document.getElementById("galleryModal");
             const galleryContent = document.getElementById("modalGalleryContent");
@@ -692,7 +700,8 @@ function handleSwipe() {
 
         // Ferme la modale de galerie
      function closeGallery() { 
-    document.getElementById("galleryModal").style.display = "none";
+document.getElementById("homeSection").classList.remove("hidden");    
+document.getElementById("galleryModal").style.display = "none";
     document.body.style.overflow = 'auto';
     document.getElementById("homeSection").style.display = "block";
 }
