@@ -342,7 +342,8 @@
 <h1>Bruno Collin Plasticien</h1>
 </header>
 
-<section>
+<section id="homeSection">        
+<!-- <section> -->
 <!-- <h2>Galeries</h2> -->
 <!-- <p>Cliquez sur une image ou sur son titre pour ouvrir la galerie correspondante.</p> -->
 <div class="home-grid">
@@ -637,6 +638,7 @@ function handleSwipe() {
         
         // Ouvre une galerie dans la modale
         function openGallery(type) {
+           document.getElementById("homeSection").style.display = "none";     
             const modal = document.getElementById("galleryModal");
             const galleryContent = document.getElementById("modalGalleryContent");
             const galleryTitle = document.getElementById("galleryTitle");
@@ -689,10 +691,11 @@ function handleSwipe() {
         }
 
         // Ferme la modale de galerie
-        function closeGallery() { 
-            document.getElementById("galleryModal").style.display = "none";
-            document.body.style.overflow = 'auto';
-        }
+     function closeGallery() { 
+    document.getElementById("galleryModal").style.display = "none";
+    document.body.style.overflow = 'auto';
+    document.getElementById("homeSection").style.display = "block";
+}
         
 <!--
         function closeGallery() {
